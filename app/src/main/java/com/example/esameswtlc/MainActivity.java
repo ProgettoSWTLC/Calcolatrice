@@ -2,6 +2,7 @@ package com.example.esameswtlc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         // Aggiorno le TextView
         this.updateViews(input);
     }
+    
 
     /**
      * Metodo che, presa una stringa in input, aggiorna il contentuto delle TextView aggiungendo in
@@ -94,5 +96,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    /**
+     * Al click della Textview apre la cronologia delle operazioni
+     * @param view
+     */
+    public void showHistory(View view) {
+        Intent intent = new Intent(this, showHistory.class);
+        startActivity(intent);
+    }
 }
