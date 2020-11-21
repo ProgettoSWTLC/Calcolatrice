@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">EsameSWTLC</string>
+    <string name="plusButtonText">+</string>
+    <string name="button3Text">3</string>
+    <string name="button2Text">2</string>
+    <string name="button1Text">1</string>
+    <string name="minusButtonText">-</string>
+    <string name="button4Text">4</string>
+    <string name="button5Text">5</string>
+    <string name="button6Text">6</string>
+    <string name="multButtonText">×</string>
+    <string name="button7Text">7</string>
+    <string name="button8Text">8</string>
+    <string name="button9Text">9</string>
+    <string name="divButtonText">÷</string>
+    <string name="button0Text">0</string>
+    <string name="buttonAnsText">ANS</string>
+    <string name="buttonDotText">.</string>
+    <string name="buttonCAText">CA</string>
+    <string name="buttonClear">DEL</string>
+    <string name="buttonSqrtText">√</string>
+    <string name="resultButtonText">=</string>
 </resources>
