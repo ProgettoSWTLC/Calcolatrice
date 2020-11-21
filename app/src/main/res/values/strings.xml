@@ -20,4 +20,9 @@
     <string name="buttonClear">DEL</string>
     <string name="buttonSqrtText">√</string>
     <string name="resultButtonText">=</string>
+    <string name="buttonCube">x³</string>
+    <string name="buttonSquare">x²</string>
+    <string name="buttonPowerN">xⁿ</string>
+    <string name="buttonPI">π</string>
+    <string name="buttonCbrtText">³√</string>
 </resources>

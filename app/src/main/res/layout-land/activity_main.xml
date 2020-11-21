@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,6 +29,14 @@
         style="?android:attr/buttonBarStyle"
         android:layout_weight="1">
 
+        <Button
+            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="match_parent"
+            android:text="@string/buttonSquare"
+            android:textSize="24sp"
+            android:layout_weight="1"
+            tools:ignore="ButtonStyle" />
         <Button
             android:id="@+id/buttonClearAll"
             style="?android:attr/buttonBarButtonStyle"
@@ -73,6 +82,15 @@
         android:layout_height="0dp"
         style="?android:attr/buttonBarStyle" >
 
+
+        <Button
+            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="match_parent"
+            android:text="@string/buttonCube"
+            android:textSize="24sp"
+            android:layout_weight="1"
+            tools:ignore="ButtonStyle" />
         <Button
             android:id="@+id/button1"
             style="?android:attr/buttonBarButtonStyle"
@@ -119,7 +137,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         style="?android:attr/buttonBarStyle" >
-
+        <Button
+            android:id="@+id/buttonPowerN"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/buttonPowerN"
+            android:textSize="24sp" />
         <Button
             android:id="@+id/button4"
             style="?android:attr/buttonBarButtonStyle"
@@ -168,6 +193,14 @@
         style="?android:attr/buttonBarStyle" >
 
         <Button
+            android:id="@+id/buttonPI"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/buttonPI"
+            android:textSize="24sp" />
+        <Button
             android:id="@+id/button7"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
@@ -213,7 +246,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         style="?android:attr/buttonBarStyle" >
-
+        <Button
+            android:id="@+id/buttonCbrt"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/buttonCbrtText"
+            android:textSize="24sp" />
         <Button
             android:id="@+id/buttonSqrt"
             style="?android:attr/buttonBarButtonStyle"
