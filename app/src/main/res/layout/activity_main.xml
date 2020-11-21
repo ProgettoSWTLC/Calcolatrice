@@ -8,33 +8,142 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Forse ce l'ho fatta!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:text="Schermo che mostra i calcoli!"
+        android:gravity="center"
+        />
+    <!-- RIGA con 7, 8, 9, X-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <Button android:id="@+id/button_7"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="1"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:text="@string/button7"
+            android:layout_margin="@dimen/button_margin"/>
+        <Button android:id="@+id/button_8"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="2"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:text="@string/button8"
+            android:layout_margin="@dimen/button_margin"
+            />
+        <Button android:id="@+id/button_9"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="3"
-            tools:ignore="ButtonStyle" />
+            android:text="@string/button9"
+            android:layout_margin="@dimen/button_margin"
+            />
+        <Button android:id="@+id/button_multiplications"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/multiplication"
+            android:layout_margin="@dimen/button_margin"
+            />
     </LinearLayout>
-
+    <!-- RIGA con 4, 5, 6, - -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <Button android:id="@+id/button_4"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/button4"
+            android:layout_margin="@dimen/button_margin"/>
+        <Button android:id="@+id/button_5"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/button5"
+            android:layout_margin="@dimen/button_margin"
+            />
+        <Button android:id="@+id/button_6"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/button6"
+            android:layout_margin="@dimen/button_margin"
+            />
+        <Button android:id="@+id/button_minus"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/minus"
+            android:layout_margin="@dimen/button_margin"
+            />
+    </LinearLayout>
+    <!-- RIGA con 1, 2, 3, +-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <Button android:id="@+id/button_1"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/button1"
+            android:layout_margin="@dimen/button_margin"/>
+        <Button android:id="@+id/button_2"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/button2"
+            android:layout_margin="@dimen/button_margin"
+            />
+        <Button android:id="@+id/button_3"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/button3"
+            android:layout_margin="@dimen/button_margin"
+            />
+        <Button android:id="@+id/button_plus"
+            android:layout_width="0pt"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/plus"
+            android:layout_margin="@dimen/button_margin"
+            />
+    </LinearLayout>
+    <!-- RIGA con 0, =, VIRGOLA -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+        <Button android:id="@+id/button_0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/button0"
+            android:layout_margin="@dimen/button_margin"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <Button android:id="@+id/button_point"
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/point"
+                android:layout_margin="@dimen/button_margin"
+                />
+            <Button android:id="@+id/button_equal"
+                android:layout_width="0pt"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/equal"
+                android:layout_margin="@dimen/button_margin"
+                />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
