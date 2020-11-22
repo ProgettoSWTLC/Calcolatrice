@@ -51,7 +51,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/buttonClear"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:onClick="deleteDigit"/>
 
         <Button
             android:id="@+id/buttonAns"
@@ -60,7 +61,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/buttonAnsText"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:autoSizeTextType="uniform" />
 
         <Button
             android:id="@+id/plusButton"
@@ -68,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="setOperator"
             android:text="@string/plusButtonText"
             android:textSize="24sp" />
     </LinearLayout>
@@ -115,6 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="setOperator"
             android:text="@string/minusButtonText"
             android:textSize="24sp" />
     </LinearLayout>
@@ -162,6 +166,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="setOperator"
             android:text="@string/multButtonText"
             android:textSize="24sp" />
     </LinearLayout>
@@ -209,6 +214,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="setOperator"
             android:text="@string/divButtonText"
             android:textSize="24sp" />
     </LinearLayout>
