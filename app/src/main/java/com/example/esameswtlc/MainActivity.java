@@ -209,7 +209,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Funzionamento identico alla inputNumber solo che funziona per i tasti speciali
+     *
+     * @param view tasto premuto
+     */
     public void inputSpecialCharacter(View view){
+        // Se ho appena terminato un'operazione e inserisco un numero,
+        // inizializzo il tutto
+        if (this.done) {
+            this.init();
+        }
         // Ottengo il testo del pulsante premuto
         String input = ((Button) view).getText().toString();
         String value = "";
@@ -263,9 +273,9 @@ public class MainActivity extends AppCompatActivity {
 
         boolean error = false;
 
-        // Se sono stati inseriti entrambi i numeri, smisto l'operzaione
+        // Se sono stati inseriti entrambi i numeri, smisto l'operazione ad uno o due numeri
         if (secondNumber) {
-            //smisto l'operazione da fare
+            //smisto l'operazione da fare ad un solo operatore
             if ((operator.compareTo("×") == 0)) {
                 this.r = this.x * this.y;
             } else if ((operator.compareTo("+") == 0)) {
@@ -279,8 +289,10 @@ public class MainActivity extends AppCompatActivity {
                     error = true;
                 }
             }
+        } else {
+            //lista di operazioni con un solo numero
         }
-
+        // se non si sono verificati errori di calcolo mostro il risultato e salvo in memoria l'operazione
         if (!error){
             this.rString = r.toString();
             this.fullOperationText = this.fullOperationText + " = ";
