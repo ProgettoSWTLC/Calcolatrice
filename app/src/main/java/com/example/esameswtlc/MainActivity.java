@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private final Boolean CLEAR = false;
@@ -36,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private String fullOperationText;
     private String screenText;
 
-    private String[] history = new String[10];
-    private int contatore;
+    private ArrayList<String> history;
+
+    private Boolean done;
 
 
 
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.screenView = findViewById(R.id.screenView);
         this.fullOperationView = findViewById(R.id.fullOperationView);
-
+        this.history = new ArrayList<>();
         this.init();
     }
 
@@ -59,60 +62,92 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setOperator(View view) {
-        /*
-            Quando viene premuto un operatore, memorizzo il valore presente nello screen in x.
-            Successivamente pulisco screenView e aggiorno la view fullOperationView
-         */
 
-        // Esco nel caso non sia stato inserito nessun numero
-        if (this.screenText.equals("")) {
-            // Se premo un operatore e l'input è nullo, allora costruisco la stringa fullOperation
-            // in modo che venga aggiornato l'operatore senza modificare i valori
+        // Se premo un'operatore dopo aver terminato un'operazione
+        // Utilizzo l'ultimo risultato come primo elemento della
+        // prossima operazione, e richiedo il secondo numero
+        if(this.done) {
+            this.init();
+            // Memorizzo l'operatore
+            this.operator = ((Button) view).getText().toString();
+            this.x = this.ans;
+            this.xString = this.ansString;
+            this.firstNumber = true;
+            this.updateViews(this.xString + " " + this.operator + " ", CLEAR);
+            this.clearScreen();
+        } else {
+            /*
+                Quando viene premuto un operatore, memorizzo il valore presente nello screen in x.
+                Successivamente pulisco screenView e aggiorno la view fullOperationView
+             */
+            if(this.screenText.equals("-")){
+                return;
+            }
+
+            // Gestione nel caso di input nullo
+            if (this.screenText.equals("")) {
+
+                String selectedOp = ((Button) view).getText().toString();
+
+                // Consento di inserire il - come primo carattere per i numeri
+                // negativi se l'input è nullo
+                if(selectedOp.equals("-")) {
+                    if(!firstNumber) {
+                        this.xString = selectedOp;
+                    } else {
+                        this.yString = selectedOp;
+                    }
+                    updateViews(selectedOp);
+                    return;
+                }
+
+                // Se premo un operatore e l'input è nullo, allora costruisco la stringa fullOperation
+                // in modo che venga aggiornato l'operatore senza modificare i valori
+                if (this.firstNumber) {
+                    this.operator = selectedOp;
+                    this.fullOperationText = (this.xString + " " + this.operator + " " + this.yString);
+                    this.fullOperationView.setText(this.fullOperationText);
+                    return;
+                }
+
+                return;
+            }
+
+            // Memorizzo l'operatore
+            this.operator = ((Button) view).getText().toString();
 
             if (this.firstNumber) {
-                // Memorizzo l'operatore
-                this.operator = ((Button) view).getText().toString();
+                // Se è gia stato inserito un numero, allora aggiorno l'operatore
+                // senza cambiare i valori gia inseriti
+
+                this.yString = this.screenText;
+                this.y = Double.valueOf(yString);
+                // Ricostruisco la striga fullOperationText in modo che venga aggiornato solo
+                // l'operatore e non vada a modificare i valori inseriti
+
                 this.fullOperationText = (this.xString + " " + this.operator + " " + this.yString);
-                this.fullOperationView.setText(this.fullOperationText);
+            } else {
+                // Memorizzo il primo valore inserito
+                String inputNumber = this.screenText;
+
+                // Memorizzo il valore inserito nella variabile x
+                this.x = Double.valueOf(inputNumber);
+
+                // Aggiorno la fullOperationView
+                this.updateViews(this.operator);
+
+                // Pulisco lo screen
+                this.clearScreen();
+
+                // Se non è stato ancora stato selezionato un operatore
+                this.firstNumber = true;
+                this.xString = inputNumber;
+                this.fullOperationText = (inputNumber + " " + this.operator + " ");
             }
-            return;
+
+            // Infine aggiorno la fullOperationView
+            this.fullOperationView.setText(this.fullOperationText);
         }
-
-        // Memorizzo l'operatore
-        this.operator = ((Button) view).getText().toString();
-
-        if (this.firstNumber) {
-            // Se è gia stato inserito un numero, allora aggiorno l'operatore
-            // senza cambiare i valori gia inseriti
-
-            this.yString = this.screenText;
-            this.y = Double.valueOf(yString);
-            // Ricostruisco la striga fullOperationText in modo che venga aggiornato solo
-            // l'operatore e non vada a modificare i valori inseriti
-
-            this.fullOperationText = (this.xString + " " + this.operator + " " + this.yString);
-        } else {
-            // Memorizzo l'operatore selezionato e il valore inserito
-            String inputNumber = this.screenText;
-
-            // Memorizzo il valore inserito nella variabile x
-            this.x = Double.valueOf(inputNumber);
-
-            // Aggiorno la fullOperationView
-            this.updateViews(this.operator);
-
-            // Pulisco lo screen
-            this.clearScreen();
-
-            // Se non è stato ancora stato selezionato un operatore
-            this.firstNumber = true;
-            this.xString = inputNumber;
-            this.fullOperationText = (inputNumber + " " + this.operator + " ");
-        }
-
-        // Infine aggiorno la fullOperationView
-        this.fullOperationView.setText(this.fullOperationText);
-
     }
 
     /**
@@ -121,6 +156,9 @@ public class MainActivity extends AppCompatActivity {
      * @param view: Pulsante DEL
      */
     public void deleteDigit(View view) {
+        if (this.done) {
+            init();
+        }
         // Se l'input è nullo, esco dalla funzione
         if(this.screenText.equals("")) { return; }
 
@@ -158,6 +196,11 @@ public class MainActivity extends AppCompatActivity {
      * @param view: Componente che è stato premuto
      */
     public void inputNumber(View view) {
+        // Se ho appena terminato un'operazione e inserisco un numero,
+        // inizializzo il tutto
+        if (this.done) {
+            this.init();
+        }
         // Ottengo il testo del pulsante premuto
         String input = ((Button) view).getText().toString();
 
@@ -169,14 +212,16 @@ public class MainActivity extends AppCompatActivity {
     public void inputSpecialCharacter(View view){
         // Ottengo il testo del pulsante premuto
         String input = ((Button) view).getText().toString();
+        String value = "";
         // Smisto i vari casi
-        if (input.compareTo("π")==0){
-            input = "3.14159265";
-        } else if (input.compareTo("ANS")==0){
-            input = rString;
+        if (input.equals("π")){
+            value = "3.14159265";
+        } else if (input.equals("ANS")){
+            value = this.ansString;
         }
+
         // Aggiorno le TextView
-        this.updateViews(input);
+        this.updateViews(value);
     }
 
     /**
@@ -198,33 +243,45 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void getResult(View view) {
-        boolean error = false;
-        this.yString = screenView.getText().toString();
+        // Se è stato inserito solo un numero, oppure ripremo
+        // uguale dopo aver eseguito un'operazione, esco
+        if (!firstNumber || this.done) {
+            return;
+        }
+
+
+        this.yString = this.screenView.getText().toString();
         //Mi assicuro che ci sia un contenuto nel secondo numero
         if (this.yString.compareTo("")==0){
-            secondNumber = false;
+            this.secondNumber = false;
             this.y = 0.0;
             this.yString = "0";
         } else {
-            secondNumber = true;
+            this.secondNumber = true;
             this.y = Double.parseDouble(this.yString);
         }
 
-        //smisto l'operazione da fare
-       if ((operator.compareTo("×")==0) && secondNumber){
-           this.r = this.x * this.y;
-        } else if ((operator.compareTo("+")==0) && secondNumber) {
-            this.r = this.x + this.y;
-        } else if ((operator.compareTo("-")==0) && secondNumber) {
-            this.r = this.x - this.y;
-        } else if ((operator.compareTo("÷")==0) && secondNumber) {
-            if (this.y!=0) {
-                this.r = this.x / this.y;
-            } else {
-                error = true;
+        boolean error = false;
+
+        // Se sono stati inseriti entrambi i numeri, smisto l'operzaione
+        if (secondNumber) {
+            //smisto l'operazione da fare
+            if ((operator.compareTo("×") == 0)) {
+                this.r = this.x * this.y;
+            } else if ((operator.compareTo("+") == 0)) {
+                this.r = this.x + this.y;
+            } else if ((operator.compareTo("-") == 0)) {
+                this.r = this.x - this.y;
+            } else if ((operator.compareTo("÷") == 0)) {
+                if (this.y != 0) {
+                    this.r = this.x / this.y;
+                } else {
+                    error = true;
+                }
             }
         }
-       if (!error){
+
+        if (!error){
             this.rString = r.toString();
             this.fullOperationText = this.fullOperationText + " = ";
             this.screenText = "";
@@ -233,8 +290,8 @@ public class MainActivity extends AppCompatActivity {
             this.ansString = rString;
             newOperation();
         } else {
-           updateViews("Error", false);
-       }
+            updateViews("Error", false);
+        }
     }
 
     /**
@@ -242,12 +299,8 @@ public class MainActivity extends AppCompatActivity {
      * vecchia
      */
     private void newOperation() {
-        this.history[contatore] = this.fullOperationText;
-        contatore++;
-        this.firstNumber = false;
-        this.screenText="";
-        this.fullOperationText="";
-
+        this.history.add(this.fullOperationText);
+        this.done = true;
     }
 
 
@@ -295,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
         this.xString = "";
         this.yString = "";
         this.rString = "";
-        this.contatore = 0;
+        this.done = false;
     }
 
     private void clearScreen() {
