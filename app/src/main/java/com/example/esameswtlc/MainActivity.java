@@ -29,14 +29,16 @@ public class MainActivity extends AppCompatActivity {
     private String ansString;
 
     private String operator; // Contiene l'operatore selezionato
-    private Boolean firstNumber;
+    private Boolean firstNumber; // Indica se è stata inserito un valore e definisce se sono in un operazione
     private Boolean secondNumber;
+
 
     private String fullOperationText;
     private String screenText;
 
-    private String[] history;
+    private String[] history = new String[10];
     private int contatore;
+
 
 
     @Override
@@ -240,6 +242,12 @@ public class MainActivity extends AppCompatActivity {
      * vecchia
      */
     private void newOperation() {
+        this.history[contatore] = this.fullOperationText;
+        contatore++;
+        this.firstNumber = false;
+        this.screenText="";
+        this.fullOperationText="";
+
     }
 
 
@@ -287,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
         this.xString = "";
         this.yString = "";
         this.rString = "";
+        this.contatore = 0;
     }
 
     private void clearScreen() {
