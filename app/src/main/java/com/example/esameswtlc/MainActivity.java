@@ -201,6 +201,8 @@ public class MainActivity extends AppCompatActivity {
         //Mi assicuro che ci sia un contenuto nel secondo numero
         if (this.yString.compareTo("")==0){
             secondNumber = false;
+            this.y = 0.0;
+            this.yString = "0";
         } else {
             secondNumber = true;
             this.y = Double.parseDouble(this.yString);
