@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private String operator; // Contiene l'operatore selezionato
     private Boolean firstNumber;
     private Boolean secondNumber;
-    private Boolean error;  //  L'operazione corrente è valida o meno
 
     private String fullOperationText;
     private String screenText;
@@ -197,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void getResult(View view) {
+        boolean error = false;
         this.yString = screenView.getText().toString();
         //Mi assicuro che ci sia un contenuto nel secondo numero
         if (this.yString.compareTo("")==0){
@@ -217,10 +217,10 @@ public class MainActivity extends AppCompatActivity {
             if (this.y!=0) {
                 this.r = this.x / this.y;
             } else {
-                this.error = true;
+                error = true;
             }
         }
-       if (!this.error){
+       if (!error){
             this.rString = r.toString();
             this.fullOperationText = this.fullOperationText + " = ";
             this.screenText = "";
