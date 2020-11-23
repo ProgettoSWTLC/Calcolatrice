@@ -63,6 +63,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/buttonAnsText"
+            android:onClick="inputSpecialCharacter"
             android:textSize="24sp" />
 
         <Button
@@ -198,6 +199,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="inputSpecialCharacter"
             android:text="@string/buttonPI"
             android:textSize="24sp" />
         <Button

@@ -61,6 +61,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/buttonAnsText"
+            android:onClick="inputSpecialCharacter"
             android:textSize="24sp"
             android:autoSizeTextType="uniform" />
 
@@ -261,6 +262,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/resultButtonText"
+            android:onClick="getResult"
             android:textSize="24sp" />
     </LinearLayout>
 

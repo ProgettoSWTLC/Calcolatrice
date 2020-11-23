@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
 
     private final Boolean CLEAR = false;
@@ -19,17 +21,23 @@ public class MainActivity extends AppCompatActivity {
     private Double r; // Contiene il risultato dell'operazione
     private Double x; // Contiene il primo elemento dell'operazione
     private Double y; // Contiene il secondo elemento dell'operazione
+    private Double ans; //Contiene l'ultimo risultato ottenuto
 
     private String xString;
     private String yString;
+    private String rString;
+    private String ansString;
 
     private String operator; // Contiene l'operatore selezionato
     private Boolean firstNumber;
+    private Boolean secondNumber;
+    private Boolean error;  //  L'operazione corrente è valida o meno
 
     private String fullOperationText;
     private String screenText;
 
     private String[] history;
+    private int contatore;
 
 
     @Override
@@ -154,8 +162,21 @@ public class MainActivity extends AppCompatActivity {
 
         // Aggiorno le TextView
         this.updateViews(input);
+
     }
 
+    public void inputSpecialCharacter(View view){
+        // Ottengo il testo del pulsante premuto
+        String input = ((Button) view).getText().toString();
+        // Smisto i vari casi
+        if (input.compareTo("π")==0){
+            input = "3.14159265";
+        } else if (input.compareTo("ANS")==0){
+            input = rString;
+        }
+        // Aggiorno le TextView
+        this.updateViews(input);
+    }
 
     /**
      * Al click della Textview apre la cronologia delle operazioni
@@ -164,6 +185,59 @@ public class MainActivity extends AppCompatActivity {
     public void showHistory(View view) {
         Intent intent = new Intent(this, showHistory.class);
         startActivity(intent);
+    }
+
+    /**
+     * Alla pressione dell'uguale il metodo restituisce l'operazione in base all'operatore inserito
+     * Legge inoltre se è stato inserito un secondo numero
+     * (NOTE al momento del commit:
+     *      - non si assicura che io abbia inserito un numero
+     *      - non resetta il primo numero
+     *      - se si spamma l'operazione crea tanti uguali)
+     * @param view
+     */
+    public void getResult(View view) {
+        this.yString = screenView.getText().toString();
+        //Mi assicuro che ci sia un contenuto nel secondo numero
+        if (this.yString.compareTo("")==0){
+            secondNumber = false;
+        } else {
+            secondNumber = true;
+            this.y = Double.parseDouble(this.yString);
+        }
+
+        //smisto l'operazione da fare
+       if ((operator.compareTo("×")==0) && secondNumber){
+           this.r = this.x * this.y;
+        } else if ((operator.compareTo("+")==0) && secondNumber) {
+            this.r = this.x + this.y;
+        } else if ((operator.compareTo("-")==0) && secondNumber) {
+            this.r = this.x - this.y;
+        } else if ((operator.compareTo("÷")==0) && secondNumber) {
+            if (this.y!=0) {
+                this.r = this.x / this.y;
+            } else {
+                this.error = true;
+            }
+        }
+       if (!this.error){
+            this.rString = r.toString();
+            this.fullOperationText = this.fullOperationText + " = ";
+            this.screenText = "";
+            updateViews(this.rString);
+            this.ans = this.r;
+            this.ansString = rString;
+            newOperation();
+        } else {
+           updateViews("Error", false);
+       }
+    }
+
+    /**
+     * Metodo che dopo aver premuto uguale crea una nuova operazione e salva in cronologia la
+     * vecchia
+     */
+    private void newOperation() {
     }
 
 
@@ -206,14 +280,18 @@ public class MainActivity extends AppCompatActivity {
         this.y = 0.0;
         this.r = 0.0;
         this.firstNumber = false;
+        this.secondNumber = false;
         this.operator = "";
         this.xString = "";
         this.yString = "";
+        this.rString = "";
     }
 
     private void clearScreen() {
         this.screenText = "";
         this.screenView.setText("");
     }
+
+
 
 }
