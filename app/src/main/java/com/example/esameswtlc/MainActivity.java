@@ -347,6 +347,30 @@ public class MainActivity extends AppCompatActivity {
         this.done = true;
     }
 
+    /**
+     * Metodo per cambiare segno del numero attualmente inserito nella
+     * @param view
+     */
+    public void changeSign(View view) {
+        Double inputValue = 0.0;
+        String input = ((TextView) screenView).getText().toString();
+        if (!input.equals("") && !input.equals("-")) {
+            inputValue = Double.parseDouble(input) * -1;
+            input = inputValue.toString();
+            this.isSpecial = true;
+        } else if (input.equals("-")){
+            input = "";
+        } else {
+            input = "-";
+        }
+
+
+        deleteDigit(view);
+
+        // Aggiorno le TextView
+        this.updateViews(input);
+    }
+
 
     // ___________________________________ Metodi utili ___________________________________
 
@@ -405,7 +429,5 @@ public class MainActivity extends AppCompatActivity {
         this.screenText = "";
         this.screenView.setText("");
     }
-
-
 
 }

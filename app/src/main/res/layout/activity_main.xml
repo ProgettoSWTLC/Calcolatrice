@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:gravity="end"
+        android:lines="1"
         android:onClick="showHistory"/>
 
     <!-- Text view in cui viene visualizzato l'input e l'output -->
@@ -24,6 +25,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textSize="70sp"
+        android:lines="1"
         android:textAlignment="textEnd"
         android:autoSizeTextType="uniform"/>
 
@@ -41,7 +43,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/buttonCAText"
-            android:textSize="24sp"
+            android:autoSizeTextType="uniform"
             android:onClick="clearAll"/>
 
         <Button
@@ -51,7 +53,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/buttonClear"
-            android:textSize="24sp"
+            android:autoSizeTextType="uniform"
             android:onClick="deleteDigit"/>
 
         <Button
@@ -60,10 +62,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/buttonAnsText"
+            android:autoSizeTextType="uniform"
+            android:lines="1"
             android:onClick="inputSpecialCharacter"
-            android:textSize="24sp"
-            android:autoSizeTextType="uniform" />
+            android:text="@string/buttonAnsText"
+            />
 
         <Button
             android:id="@+id/plusButton"
@@ -73,7 +76,7 @@
             android:layout_weight="1"
             android:onClick="setOperator"
             android:text="@string/plusButtonText"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
     </LinearLayout>
 
     <!-- Seconda riga di button -->
@@ -91,7 +94,7 @@
             android:layout_weight="1"
             android:onClick="inputNumber"
             android:text="@string/button1Text"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
 
         <Button
             android:id="@+id/button2"
@@ -101,7 +104,7 @@
             android:layout_weight="1"
             android:onClick="inputNumber"
             android:text="@string/button2Text"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
 
         <Button
             android:id="@+id/button3"
@@ -111,7 +114,7 @@
             android:layout_weight="1"
             android:onClick="inputNumber"
             android:text="@string/button3Text"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
 
         <Button
             android:id="@+id/minusButton"
@@ -121,7 +124,7 @@
             android:layout_weight="1"
             android:onClick="setOperator"
             android:text="@string/minusButtonText"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform"/>
     </LinearLayout>
 
     <!-- Terza riga di button -->
@@ -139,7 +142,7 @@
             android:layout_weight="1"
             android:onClick="inputNumber"
             android:text="@string/button4Text"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
 
         <Button
             android:id="@+id/button5"
@@ -149,7 +152,7 @@
             android:layout_weight="1"
             android:onClick="inputNumber"
             android:text="@string/button5Text"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform"/>
 
         <Button
             android:id="@+id/button6"
@@ -159,7 +162,7 @@
             android:layout_weight="1"
             android:onClick="inputNumber"
             android:text="@string/button6Text"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
 
         <Button
             android:id="@+id/multButton"
@@ -169,7 +172,7 @@
             android:layout_weight="1"
             android:onClick="setOperator"
             android:text="@string/multButtonText"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
     </LinearLayout>
 
     <!-- Quarta riga di button -->
@@ -187,7 +190,7 @@
             android:layout_weight="1"
             android:onClick="inputNumber"
             android:text="@string/button7Text"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
 
         <Button
             android:id="@+id/button8"
@@ -197,7 +200,7 @@
             android:layout_weight="1"
             android:onClick="inputNumber"
             android:text="@string/button8Text"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
 
         <Button
             android:id="@+id/button9"
@@ -207,7 +210,7 @@
             android:layout_weight="1"
             android:onClick="inputNumber"
             android:text="@string/button9Text"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
 
         <Button
             android:id="@+id/divButton"
@@ -217,7 +220,7 @@
             android:layout_weight="1"
             android:onClick="setOperator"
             android:text="@string/divButtonText"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform"/>
     </LinearLayout>
 
     <!-- Quinta riga di button -->
@@ -226,7 +229,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         style="?android:attr/buttonBarStyle" >
-
+        <!--
         <Button
             android:id="@+id/buttonSqrt"
             style="?android:attr/buttonBarButtonStyle"
@@ -234,7 +237,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/buttonSqrtText"
-            android:textSize="24sp" />
+            android:textSize="24sp" />-->
+        <Button android:id="@+id/buttonChangeSign"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_weight="1"
+            android:text="@string/buttonChangeSignText"
+            android:autoSizeTextType="uniform"
+            android:onClick="changeSign"/>
+
 
         <Button
             android:id="@+id/button0"
@@ -244,7 +256,7 @@
             android:layout_weight="1"
             android:onClick="inputNumber"
             android:text="@string/button0Text"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform"/>
 
         <Button
             android:id="@+id/buttonDot"
@@ -254,7 +266,7 @@
             android:layout_weight="1"
             android:text="@string/buttonDotText"
             android:onClick="inputPoint"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
 
         <Button
             android:id="@+id/resultButton"
@@ -264,7 +276,7 @@
             android:layout_weight="1"
             android:text="@string/resultButtonText"
             android:onClick="getResult"
-            android:textSize="24sp" />
+            android:autoSizeTextType="uniform" />
     </LinearLayout>
 
 

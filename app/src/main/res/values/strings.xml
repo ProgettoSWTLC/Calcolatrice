@@ -25,4 +25,5 @@
     <string name="buttonPowerN">xⁿ</string>
     <string name="buttonPI">π</string>
     <string name="buttonCbrtText">³√</string>
+    <string name="buttonChangeSignText">±</string>
 </resources>
