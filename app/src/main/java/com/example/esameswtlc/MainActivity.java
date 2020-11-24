@@ -338,6 +338,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             updateViews("Error", false);
         }
+        formatOutput();
     }
 
     /**
@@ -369,7 +370,13 @@ public class MainActivity extends AppCompatActivity {
 
         deleteDigit(view);
 
-        this.isSpecial = false;
+        if (input.compareTo("-"+ansString)==0 || input.compareTo(ansString)==0){
+            // è stato premuto il pulsante ans precedentemente e mantiene lo stato special
+            // evita perciò che tolga lo stato special se si cambia di segno al ANS
+            this.isSpecial = true;
+        } else {
+            this.isSpecial = false;
+        }
 
         /*
         if (!input.equals("") && !input.equals("-")) {
@@ -469,4 +476,13 @@ public class MainActivity extends AppCompatActivity {
         this.screenView.setText("");
     }
 
+    /**
+     * codice che verifica se il valore di rString inserito è un intero, e se è tale lo tronca mantenendo solo la parte intera
+     * e si assicura che il numero non sia espresso in modalità esponenziale
+     */
+    private void formatOutput(){
+        if(!hasDecimal(Double.parseDouble(this.screenText)) && Double.parseDouble(this.screenText)<1e7){
+                this.screenView.setText(this.rString.split("\\.")[0]);
+        }
+    }
 }
