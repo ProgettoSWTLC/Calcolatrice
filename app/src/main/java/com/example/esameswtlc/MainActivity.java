@@ -356,6 +356,22 @@ public class MainActivity extends AppCompatActivity {
     public void changeSign(View view) {
         Double inputValue = 0.0;
         String input = screenText;
+
+        if (input.equals("")){
+            input = "-";
+        } else if (input.charAt(0) == '-') {
+            input = input.substring(1);
+            this.isSpecial = true;
+        } else {
+            this.isSpecial = true;
+            input = '-' + input;
+        }
+
+        deleteDigit(view);
+
+        this.isSpecial = false;
+
+        /*
         if (!input.equals("") && !input.equals("-")) {
             inputValue = Double.parseDouble(input) * -1;
             input = inputValue.toString();
@@ -366,14 +382,18 @@ public class MainActivity extends AppCompatActivity {
             input = "-";
         }
 
+
         deleteDigit(view);
 
         this.isSpecial = false;
+
 
         if (!hasDecimal(inputValue)){
             // Dovuto al cast il programma crea in automatica .0 alla fine del numero se è intero, cancello tali caratteri
             input = input.split("\\.")[0];
         }
+
+        */
 
         this.updateViews(input);
     }
