@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private final Boolean CLEAR = false;
+    static final String HISTORY = "com.example.esameswtlc.HISTORY";
 
     // Riferimento alle text view della main activity
     private TextView screenView;
@@ -272,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void showHistory(View view) {
         Intent intent = new Intent(this, showHistory.class);
+        intent.putExtra(HISTORY, history);
         startActivity(intent);
     }
 
