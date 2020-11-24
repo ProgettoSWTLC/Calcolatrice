@@ -353,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void changeSign(View view) {
         Double inputValue = 0.0;
-        String input = ((TextView) screenView).getText().toString();
+        String input = screenText;
         if (!input.equals("") && !input.equals("-")) {
             inputValue = Double.parseDouble(input) * -1;
             input = inputValue.toString();
@@ -365,17 +365,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         deleteDigit(view);
-        this.isSpecial = false;
-        this.updateViews(input);
 
-        /**IMPLEMENTAZIONE DI MERDA*/
+        this.isSpecial = false;
+
         if (hasDecimal(inputValue)){
             // Dovuto al cast il programma crea in automatica .0 alla fine del numero se è intero, cancello tali caratteri
-            deleteDigit(view);
-            deleteDigit(view);
+            input = input.split("\\.")[0];
         }
 
+        this.updateViews(input);
     }
+
+    // ___________________________________ Metodi utili ___________________________________
 
     /**
      *
@@ -389,8 +390,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-    // ___________________________________ Metodi utili ___________________________________
 
     /**
      * Metodo che, presa una stringa in input, aggiorna il contentuto delle TextView aggiungendo in

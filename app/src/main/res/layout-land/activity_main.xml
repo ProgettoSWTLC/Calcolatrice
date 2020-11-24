@@ -285,7 +285,8 @@
             android:layout_weight="1"
             android:onClick="inputNumber"
             android:text="@string/button0Text"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:autoSizeTextType="uniform"/>
 
         <Button
             android:id="@+id/buttonDot"
