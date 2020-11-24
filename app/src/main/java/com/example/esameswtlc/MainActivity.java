@@ -370,12 +370,19 @@ public class MainActivity extends AppCompatActivity {
 
         /**IMPLEMENTAZIONE DI MERDA*/
         if (hasDecimal(inputValue)){
+            // Dovuto al cast il programma crea in automatica .0 alla fine del numero se è intero, cancello tali caratteri
             deleteDigit(view);
             deleteDigit(view);
         }
 
     }
 
+    /**
+     *
+     * @param value:    Numero da controllare se è intero oppure no
+     * @return True  ->  Il numero ha un decimale
+     *         False ->  Il numero è intero
+     */
     public boolean hasDecimal(Double value){
         if ((value % 1)==0){
             return true;
