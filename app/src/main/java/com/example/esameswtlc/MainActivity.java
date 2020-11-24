@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 // Consento di inserire il - come primo carattere per i numeri
                 // negativi se l'input è nullo
                 if(selectedOp.equals("-")) {
+                    this.isSpecial = false;
                     if(!firstNumber) {
                         this.xString = selectedOp;
                     } else {
@@ -210,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
             this.init();
         }
         //Se è già stato inserito un carattere speciale cancellalo
-        if(this.isSpecial){ deleteDigit(view);}
+        if(this.isSpecial){ deleteDigit(view); }
 
         // Ottengo il testo del pulsante premuto
         String input = ((Button) view).getText().toString();
@@ -253,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Al click della Textview apre la cronologia delle operazioni
-     * @param view
+     * @param view: fullOperationView
      */
     public void showHistory(View view) {
         Intent intent = new Intent(this, showHistory.class);
@@ -379,9 +380,9 @@ public class MainActivity extends AppCompatActivity {
         this.yString = "";
         this.rString = "";
         this.done = false;
-        if (ans==null) {
-            ans = 0.0;
-            ansString = "0.0";
+        if (this.ans == null) {
+            this.ans = 0.0;
+            this.ansString = "0.0";
         }
 
     }
