@@ -364,13 +364,24 @@ public class MainActivity extends AppCompatActivity {
             input = "-";
         }
 
-
         deleteDigit(view);
-
-        // Aggiorno le TextView
+        this.isSpecial = false;
         this.updateViews(input);
+
+        /**IMPLEMENTAZIONE DI MERDA*/
+        if (hasDecimal(inputValue)){
+            deleteDigit(view);
+            deleteDigit(view);
+        }
+
     }
 
+    public boolean hasDecimal(Double value){
+        if ((value % 1)==0){
+            return true;
+        }
+        return false;
+    }
 
     // ___________________________________ Metodi utili ___________________________________
 
