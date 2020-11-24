@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private String operator; // Contiene l'operatore selezionato
     private Boolean firstNumber; // Indica se è stata inserito un valore e definisce se sono in un operazione
     private Boolean secondNumber;
+    private Boolean isSpecial; // Parametro che definisce se il parametro inserito è speciale (ANS, PI..)
 
 
     private String fullOperationText;
@@ -163,7 +164,12 @@ public class MainActivity extends AppCompatActivity {
         if(this.screenText.equals("")) { return; }
 
         // Tolgo l'ultimo elemento della stringa inserita
-        this.screenText = this.screenText.substring(0, this.screenText.length() - 1);
+        if (!isSpecial) {
+            this.screenText = this.screenText.substring(0, this.screenText.length() - 1);
+        } else {
+            // Se è stato premuta una cifra speciale cancella tutto
+            this.screenText = this.screenText.substring(0, this.screenText.length() - this.screenText.length());
+        }
 
         // Salvo il contenuto di fullOperation
         String prevFull = this.fullOperationText;
@@ -177,6 +183,8 @@ public class MainActivity extends AppCompatActivity {
             this.fullOperationText = elements[0] + " " + elements[1] + " " + this.screenText;
             this.fullOperationView.setText(this.fullOperationText);
         }
+
+
 
     }
 
@@ -201,8 +209,13 @@ public class MainActivity extends AppCompatActivity {
         if (this.done) {
             this.init();
         }
+        //Se è già stato inserito un carattere speciale cancellalo
+        if(this.isSpecial){ deleteDigit(view);}
+
         // Ottengo il testo del pulsante premuto
         String input = ((Button) view).getText().toString();
+
+        this.isSpecial = false;
 
         // Aggiorno le TextView
         this.updateViews(input);
@@ -223,13 +236,17 @@ public class MainActivity extends AppCompatActivity {
         // Ottengo il testo del pulsante premuto
         String input = ((Button) view).getText().toString();
         String value = "";
-        // Smisto i vari casi
-        if (input.equals("π")){
+
+        // Pulisco lo schermo nel caso io abbia inserito altri numeri precedentemente
+        this.isSpecial = true;
+        deleteDigit(view);
+
+        //smisto i vari casi di caratteri speciali
+        if (input.equals("π")) {
             value = "3.14159265";
-        } else if (input.equals("ANS")){
+        } else if (input.equals("ANS")) {
             value = this.ansString;
         }
-
         // Aggiorno le TextView
         this.updateViews(value);
     }
@@ -356,11 +373,17 @@ public class MainActivity extends AppCompatActivity {
         this.r = 0.0;
         this.firstNumber = false;
         this.secondNumber = false;
+        this.isSpecial = false;
         this.operator = "";
         this.xString = "";
         this.yString = "";
         this.rString = "";
         this.done = false;
+        if (ans==null) {
+            ans = 0.0;
+            ansString = "0.0";
+        }
+
     }
 
     private void clearScreen() {
