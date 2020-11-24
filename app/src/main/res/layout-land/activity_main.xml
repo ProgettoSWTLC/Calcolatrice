@@ -73,6 +73,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/plusButtonText"
+            android:onClick="setOperator"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -129,6 +130,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/minusButtonText"
+            android:onClick="setOperator"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -282,6 +284,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/buttonDotText"
+            android:onClick="inputPoint"
             android:textSize="24sp" />
 
         <Button
@@ -291,6 +294,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/resultButtonText"
+            android:onClick="getResult"
             android:textSize="24sp" />
     </LinearLayout>
 

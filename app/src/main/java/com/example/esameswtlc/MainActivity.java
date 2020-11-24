@@ -252,6 +252,20 @@ public class MainActivity extends AppCompatActivity {
         this.updateViews(value);
     }
 
+    public void inputPoint(View view){
+        if (this.done) {
+            this.init();
+        }
+
+        if(!this.screenText.contains(".")){
+            if(this.screenText.compareTo("")==0) {
+                updateViews("0.");
+            } else {
+                updateViews(".");
+            }
+        }
+    }
+
     /**
      * Al click della Textview apre la cronologia delle operazioni
      * @param view: fullOperationView
