@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(!this.screenText.contains(".")){
-            if(this.screenText.compareTo("")==0) {
+            if(this.screenText.equals("") || this.screenText.equals("-")) {
                 updateViews("0.");
             } else {
                 updateViews(".");
