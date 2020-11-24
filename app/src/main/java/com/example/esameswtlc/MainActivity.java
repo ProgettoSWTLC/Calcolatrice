@@ -370,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.isSpecial = false;
 
-        if (hasDecimal(inputValue)){
+        if (!hasDecimal(inputValue)){
             // Dovuto al cast il programma crea in automatica .0 alla fine del numero se è intero, cancello tali caratteri
             input = input.split("\\.")[0];
         }
@@ -388,9 +388,9 @@ public class MainActivity extends AppCompatActivity {
      */
     public boolean hasDecimal(Double value){
         if ((value % 1)==0){
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
