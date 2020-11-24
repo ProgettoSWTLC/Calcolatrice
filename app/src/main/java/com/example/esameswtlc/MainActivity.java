@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             this.screenText = this.screenText.substring(0, this.screenText.length() - 1);
         } else {
             // Se è stato premuta una cifra speciale cancella tutto
-            this.screenText = this.screenText.substring(0, this.screenText.length() - this.screenText.length());
+            this.screenText = "";
         }
 
         // Salvo il contenuto di fullOperation
