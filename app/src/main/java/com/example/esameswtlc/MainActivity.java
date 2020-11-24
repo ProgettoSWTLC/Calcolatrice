@@ -2,11 +2,13 @@ package com.example.esameswtlc;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -15,7 +17,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private final Boolean CLEAR = false;
-    static final String HISTORY = "com.example.esameswtlc.HISTORY";
+    public static final String HISTORY = "com.example.esameswtlc.HISTORY";
+    public static final int GET_OPERATION_CODE = 1;
 
     // Riferimento alle text view della main activity
     private TextView screenView;
@@ -58,10 +61,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    // Supporto alla cronologia
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GET_OPERATION_CODE) {
+            if (resultCode == showHistory.RESULT_CODE_GET_OPERATION) {
+                // Ottengo l'operazione che è stata cliccata nell'activity showHistory
+                String operation = data.getStringExtra(showHistory.GET_OPERATION);
+                this.done = true;
+
+                // Aggiorno la grafica
+                this.updateViews(operation, CLEAR);
+
+                // Ottengo i vari elementi dell'operazione cliccata
+                String[] elements = operation.split("=");
+                String resultString = elements[1].trim();
+
+                this.screenView.setText(resultString);
+
+                // Salvo il risultato in ans
+                this.ansString = resultString;
+                this.ans = Double.valueOf(resultString);
+
+            } else if (resultCode == showHistory.DELETE_HISTORY_CODE) {
+                this.history.clear();
+                this.init();
+                // Messaggio a schermo che conferma la cancellazione della cronologia
+                Context context = getApplicationContext();
+                CharSequence text = "History has been deleted";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        }
+    }
+
+
     /**
      * Richiamata quando viene premuto un operatore (+ - x /)
      *
-     * @param view
+     * @param view: Button che contiene un operatore
      */
     public void setOperator(View view) {
 
@@ -274,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
     public void showHistory(View view) {
         Intent intent = new Intent(this, showHistory.class);
         intent.putExtra(HISTORY, history);
-        startActivity(intent);
+        startActivityForResult(intent, GET_OPERATION_CODE);
     }
 
     /**
@@ -284,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
      *      - non si assicura che io abbia inserito un numero
      *      - non resetta il primo numero
      *      - se si spamma l'operazione crea tanti uguali)
-     * @param view
+     * @param view: Pulsante uguale
      */
     public void getResult(View view) {
         // Se è stato inserito solo un numero, oppure ripremo
@@ -323,22 +362,23 @@ public class MainActivity extends AppCompatActivity {
                     error = true;
                 }
             }
-        } else {
-            //lista di operazioni con un solo numero
         }
         // se non si sono verificati errori di calcolo mostro il risultato e salvo in memoria l'operazione
         if (!error){
-            this.rString = r.toString();
+            this.rString = formatOutput(this.r);
+
             this.fullOperationText = this.fullOperationText + " = ";
             this.screenText = "";
+
             updateViews(this.rString);
+
             this.ans = this.r;
             this.ansString = rString;
+
             newOperation();
         } else {
             updateViews("Error", false);
         }
-        formatOutput();
     }
 
     /**
@@ -352,10 +392,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Metodo per cambiare segno del numero attualmente inserito nella
-     * @param view
+     * @param view: Button per cambiare segno dell'operando
      */
     public void changeSign(View view) {
-        Double inputValue = 0.0;
         String input = screenText;
 
         if (input.equals("")){
@@ -370,37 +409,10 @@ public class MainActivity extends AppCompatActivity {
 
         deleteDigit(view);
 
-        if (input.compareTo("-"+ansString)==0 || input.compareTo(ansString)==0){
-            // è stato premuto il pulsante ans precedentemente e mantiene lo stato special
-            // evita perciò che tolga lo stato special se si cambia di segno al ANS
-            this.isSpecial = true;
-        } else {
-            this.isSpecial = false;
-        }
+        // è stato premuto il pulsante ans precedentemente e mantiene lo stato special
+        // evita perciò che tolga lo stato special se si cambia di segno al ANS
+        this.isSpecial = input.compareTo("-" + ansString) == 0 || input.compareTo(ansString) == 0;
 
-        /*
-        if (!input.equals("") && !input.equals("-")) {
-            inputValue = Double.parseDouble(input) * -1;
-            input = inputValue.toString();
-            this.isSpecial = true;
-        } else if (input.equals("-")){
-            input = "";
-        } else {
-            input = "-";
-        }
-
-
-        deleteDigit(view);
-
-        this.isSpecial = false;
-
-
-        if (!hasDecimal(inputValue)){
-            // Dovuto al cast il programma crea in automatica .0 alla fine del numero se è intero, cancello tali caratteri
-            input = input.split("\\.")[0];
-        }
-
-        */
 
         this.updateViews(input);
     }
@@ -414,10 +426,7 @@ public class MainActivity extends AppCompatActivity {
      *         False ->  Il numero è intero
      */
     public boolean hasDecimal(Double value){
-        if ((value % 1)==0){
-            return false;
-        }
-        return true;
+        return (value % 1) != 0;
     }
 
     /**
@@ -477,12 +486,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * codice che verifica se il valore di rString inserito è un intero, e se è tale lo tronca mantenendo solo la parte intera
-     * e si assicura che il numero non sia espresso in modalità esponenziale
+     * Ricevuta un valore, verifica che non sia troppo grande e se è un valore intero, lo formatta
+     * togliendo la parte decimale.
+     *
+     * @param output: valore numerico da formattare
+     * @return output -> output convertito in stringa e formattato nel caso non sia eccessivamente
+     *                   grande
      */
-    private void formatOutput(){
-        if(!hasDecimal(Double.parseDouble(this.screenText)) && Double.parseDouble(this.screenText)<1e7){
-                this.screenView.setText(this.rString.split("\\.")[0]);
+    private String formatOutput(Double output){
+        if(!hasDecimal(output) && output < 1e7){
+            return output.toString().split("\\.")[0];
         }
+        return output.toString();
     }
 }

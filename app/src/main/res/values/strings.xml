@@ -26,4 +26,6 @@
     <string name="buttonPI">π</string>
     <string name="buttonCbrtText">³√</string>
     <string name="buttonChangeSignText">±</string>
+    <string name="historyTitle">History</string>
+    <string name="deleteHistoryText">Clear History</string>
 </resources>
