@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EsameSWTLC">
         <activity android:name=".showHistory"></activity>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

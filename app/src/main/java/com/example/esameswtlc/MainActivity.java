@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
 
         this.screenView = findViewById(R.id.screenView);
@@ -60,6 +62,18 @@ public class MainActivity extends AppCompatActivity {
         this.init();
     }
 
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.history = savedInstanceState.getStringArrayList("history");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putStringArrayList("history", this.history);
+    }
 
     // Supporto alla cronologia
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
