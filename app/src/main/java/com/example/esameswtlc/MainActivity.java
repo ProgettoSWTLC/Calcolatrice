@@ -544,6 +544,44 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void factorial(View  view){
+        setOperator(view);
+        Boolean error = false;
+        if (!hasDecimal(this.x)){
+            if (this.x>171){
+                error = true;
+            } else {
+                this.r = Double.parseDouble(String.valueOf(factorialOp(this.x)));
+            }
+        } else {
+            error = true;
+        }
+
+        if (!error) {
+            this.rString = formatOutput(this.r);
+
+            this.fullOperationText = this.xString + "! = ";
+            this.screenText = "";
+
+            updateViews(this.rString);
+
+            this.ans = this.r;
+            this.ansString = rString;
+
+        } else {
+            updateViews("Error", false);
+        }
+        newOperation();
+    }
+
+    private double factorialOp(Double x) {
+        Double result = 1.0;
+        for (int i = 2; i<x; i++){
+            result = result * i;
+        }
+        return result;
+    }
+
 
     // ___________________________________ Metodi utili ___________________________________
 

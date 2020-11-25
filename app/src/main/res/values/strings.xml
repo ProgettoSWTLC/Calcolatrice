@@ -28,4 +28,5 @@
     <string name="buttonChangeSignText">±</string>
     <string name="historyTitle">History</string>
     <string name="deleteHistoryText">Clear History</string>
+    <string name="buttonFactorialText">X!</string>
 </resources>
