@@ -387,14 +387,16 @@ public class MainActivity extends AppCompatActivity {
         this.yString = this.screenView.getText().toString();
         //Mi assicuro che ci sia un contenuto nel secondo numero
         if (this.yString.compareTo("")==0){
-            this.secondNumber = false;
+            /*this.secondNumber = false;
             this.y = 0.0;
-            this.yString = "0";
+            this.yString = "0";*/
+            return;
         } else {
             this.secondNumber = true;
             this.y = Double.parseDouble(this.yString);
         }
 
+        this.done = true;
         boolean error = false;
 
         // Se sono stati inseriti entrambi i numeri, smisto l'operazione ad uno o due numeri
@@ -409,7 +411,10 @@ public class MainActivity extends AppCompatActivity {
             } else if ((operator.compareTo("÷") == 0)) {
                 if (this.y != 0) {
                     this.r = this.x / this.y;
+                }else {
+                    error = true;
                 }
+
             } else {
                 // L'operazione in corso non è gestita da questo metodo, perciò salva il secondo numero ed esce
                 return;
@@ -417,7 +422,7 @@ public class MainActivity extends AppCompatActivity {
         }
         // se non si sono verificati errori di calcolo mostro il risultato e salvo in memoria l'operazione
         if (!error){
-            this.rString = formatOutput(this.r);
+            this.rString = Func.formatOutput(this.r);
 
             this.fullOperationText = this.fullOperationText + " = ";
             this.screenText = "";
@@ -429,7 +434,7 @@ public class MainActivity extends AppCompatActivity {
 
             newOperation();
         } else {
-            updateViews("Error", false);
+            updateViews("Error", CLEAR);
         }
     }
 
@@ -475,7 +480,7 @@ public class MainActivity extends AppCompatActivity {
             updateViews("Error", false);
         } else {
             this.r = Math.sqrt(this.x);
-            this.rString = formatOutput(this.r);
+            this.rString = Func.formatOutput(this.r);
 
             this.fullOperationText = "√(" + this.xString + ") = ";
             this.screenText = "";
@@ -494,7 +499,7 @@ public class MainActivity extends AppCompatActivity {
         setOperator(view);
 
         this.r = Math.cbrt(this.x);
-        this.rString = formatOutput(this.r);
+        this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = "³√(" + this.xString + ") = ";
         this.screenText = "";
@@ -512,7 +517,7 @@ public class MainActivity extends AppCompatActivity {
         setOperator(view);
 
         this.r = Math.pow(this.x,2);
-        this.rString = formatOutput(this.r);
+        this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText =  "("+ this.xString + ")² = ";
         this.screenText = "";
@@ -530,7 +535,7 @@ public class MainActivity extends AppCompatActivity {
         setOperator(view);
 
         this.r = Math.pow(this.x,3);
-        this.rString = formatOutput(this.r);
+        this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText =  "("+ this.xString + ")³ = ";
         this.screenText = "";
@@ -546,19 +551,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void factorial(View  view){
         setOperator(view);
-        Boolean error = false;
-        if (!hasDecimal(this.x)){
+        boolean error = false;
+        if (!Func.hasDecimal(this.x)){
             if (this.x>171){
                 error = true;
             } else {
-                this.r = Double.parseDouble(String.valueOf(factorialOp(this.x)));
+                this.r = Double.parseDouble(String.valueOf(Func.factorialOp(this.x)));
             }
         } else {
             error = true;
         }
 
         if (!error) {
-            this.rString = formatOutput(this.r);
+            this.rString = Func.formatOutput(this.r);
 
             this.fullOperationText = this.xString + "! = ";
             this.screenText = "";
@@ -569,31 +574,14 @@ public class MainActivity extends AppCompatActivity {
             this.ansString = rString;
 
         } else {
-            updateViews("Error", false);
+            updateViews("Error", CLEAR);
         }
         newOperation();
-    }
 
-    private double factorialOp(Double x) {
-        Double result = 1.0;
-        for (int i = 2; i<x; i++){
-            result = result * i;
-        }
-        return result;
     }
 
 
     // ___________________________________ Metodi utili ___________________________________
-
-    /**
-     *
-     * @param value:    Numero da controllare se è intero oppure no
-     * @return True  ->  Il numero ha un decimale
-     *         False ->  Il numero è intero
-     */
-    public boolean hasDecimal(Double value){
-        return (value % 1) != 0;
-    }
 
     /**
      * Metodo che, presa una stringa in input, aggiorna il contentuto delle TextView aggiungendo in
@@ -643,7 +631,6 @@ public class MainActivity extends AppCompatActivity {
             this.ans = 0.0;
             this.ansString = "0.0";
         }
-
     }
 
     private void clearScreen() {
@@ -651,19 +638,6 @@ public class MainActivity extends AppCompatActivity {
         this.screenView.setText("");
     }
 
-    /**
-     * Ricevuta un valore, verifica che non sia troppo grande e se è un valore intero, lo formatta
-     * togliendo la parte decimale.
-     *
-     * @param output: valore numerico da formattare
-     * @return output -> output convertito in stringa e formattato nel caso non sia eccessivamente
-     *                   grande
-     */
-    private String formatOutput(Double output){
-        if(!hasDecimal(output) && output < 1e7){
-            return output.toString().split("\\.")[0];
-        }
-        return output.toString();
-    }
+
 
 }
