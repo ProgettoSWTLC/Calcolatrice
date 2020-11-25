@@ -66,6 +66,28 @@ public class MainActivity extends AppCompatActivity {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         this.history = savedInstanceState.getStringArrayList("history");
+        this.x = savedInstanceState.getDouble("x");
+        this.y = savedInstanceState.getDouble("y");
+
+        this.xString = savedInstanceState.getString("x_string");
+        this.yString = savedInstanceState.getString("y_string");
+
+        this.ans = savedInstanceState.getDouble("ans");
+        this.ansString = savedInstanceState.getString("ans_string");
+
+        this.operator = savedInstanceState.getString("operator");
+
+        this.fullOperationText = savedInstanceState.getString("full_text");
+        this.screenText = savedInstanceState.getString("screen_text");
+
+        this.isSpecial = savedInstanceState.getBoolean("is_special");
+        this.done = savedInstanceState.getBoolean("done");
+
+        this.firstNumber = savedInstanceState.getBoolean("first_number");
+        this.secondNumber = savedInstanceState.getBoolean("second_number");
+
+        this.fullOperationView.setText(this.fullOperationText);
+        this.screenView.setText(this.screenText);
     }
 
     @Override
@@ -73,6 +95,21 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
 
         savedInstanceState.putStringArrayList("history", this.history);
+        savedInstanceState.putDouble("x", this.x);
+        savedInstanceState.putDouble("y", this.y);
+        savedInstanceState.putString("operator", this.operator);
+        savedInstanceState.putString("x_string", this.xString);
+        savedInstanceState.putString("y_string", this.yString);
+        savedInstanceState.putDouble("ans", this.ans);
+        savedInstanceState.putString("ans_string", this.ansString);
+        savedInstanceState.putString("full_text", this.fullOperationView.getText().toString());
+        savedInstanceState.putString("screen_text", this.screenView.getText().toString());
+        savedInstanceState.putBoolean("is_special", this.isSpecial);
+        savedInstanceState.putBoolean("done", this.done);
+        savedInstanceState.putBoolean("first_number", this.firstNumber);
+        savedInstanceState.putBoolean("second_number", this.secondNumber);
+
+
     }
 
     // Supporto alla cronologia
