@@ -358,9 +358,10 @@ public class MainActivity extends AppCompatActivity {
             } else if ((operator.compareTo("÷") == 0)) {
                 if (this.y != 0) {
                     this.r = this.x / this.y;
-                } else {
-                    error = true;
                 }
+            } else {
+                // L'operazione in corso non è gestita da questo metodo, perciò salva il secondo numero ed esce
+                return;
             }
         }
         // se non si sono verificati errori di calcolo mostro il risultato e salvo in memoria l'operazione
@@ -416,6 +417,82 @@ public class MainActivity extends AppCompatActivity {
 
         this.updateViews(input);
     }
+
+    public void sqrt(View view) {
+        setOperator(view);
+        if (this.x<0){
+            updateViews("Error", false);
+        } else {
+            this.r = Math.sqrt(this.x);
+            this.rString = formatOutput(this.r);
+
+            this.fullOperationText = "√(" + this.xString + ") = ";
+            this.screenText = "";
+
+            updateViews(this.rString);
+
+            this.ans = this.r;
+            this.ansString = rString;
+        }
+
+        newOperation();
+
+    }
+
+    public void cbrt(View view) {
+        setOperator(view);
+
+        this.r = Math.cbrt(this.x);
+        this.rString = formatOutput(this.r);
+
+        this.fullOperationText = "³√(" + this.xString + ") = ";
+        this.screenText = "";
+
+        updateViews(this.rString);
+
+        this.ans = this.r;
+        this.ansString = rString;
+
+        newOperation();
+
+    }
+
+    public void pow2(View view) {
+        setOperator(view);
+
+        this.r = Math.pow(this.x,2);
+        this.rString = formatOutput(this.r);
+
+        this.fullOperationText =  "("+ this.xString + ")² = ";
+        this.screenText = "";
+
+        updateViews(this.rString);
+
+        this.ans = this.r;
+        this.ansString = rString;
+
+        newOperation();
+
+    }
+
+    public void pow3(View view) {
+        setOperator(view);
+
+        this.r = Math.pow(this.x,3);
+        this.rString = formatOutput(this.r);
+
+        this.fullOperationText =  "("+ this.xString + ")³ = ";
+        this.screenText = "";
+
+        updateViews(this.rString);
+
+        this.ans = this.r;
+        this.ansString = rString;
+
+        newOperation();
+
+    }
+
 
     // ___________________________________ Metodi utili ___________________________________
 
@@ -499,4 +576,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return output.toString();
     }
+
 }

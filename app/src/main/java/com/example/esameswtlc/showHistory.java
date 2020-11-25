@@ -38,7 +38,8 @@ public class showHistory extends AppCompatActivity {
         // Creazione della cronologia
         for (String operation : this.history) {
             MaterialButton newOperationView = new MaterialButton(this, null, R.attr.borderlessButtonStyle);
-            newOperationView.setText(operation.split(" = ")[0] + " =\n= " + operation.split(" = ")[1]);
+            if (operation.length()>0)
+                newOperationView.setText(operation.split(" = ")[0] + " =\n= " + operation.split(" = ")[1]);
             LinearLayout.LayoutParams parametri = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT

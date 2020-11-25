@@ -30,12 +30,23 @@
         style="?android:attr/buttonBarStyle"
         android:layout_weight="1"
         >
-
-        <Button
+        <Button android:id="@+id/buttonPI"
+            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="match_parent"
+            android:text="@string/buttonPI"
+            android:textSize="24sp"
+            android:layout_weight="1"
+            android:onClick="inputSpecialCharacter"
+            tools:ignore="ButtonStyle"
+            android:autoSizeTextType="uniform"
+            />
+        <Button android:id="@+id/buttonPow2"
             android:layout_width="wrap_content"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_height="match_parent"
             android:text="@string/buttonSquare"
+            android:onClick="pow2"
             android:textSize="24sp"
             android:layout_weight="1"
             tools:ignore="ButtonStyle"
@@ -59,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="deleteDigit"
             android:text="@string/buttonClear"
             android:autoSizeTextType="uniform"
             android:lines="1" />
@@ -99,6 +111,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_height="match_parent"
             android:text="@string/buttonCube"
+            android:onClick="pow3"
             android:layout_weight="1"
             tools:ignore="ButtonStyle"
             android:autoSizeTextType="uniform"/>
@@ -156,6 +169,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/buttonPowerN"
+            android:onClick="powN"
             android:autoSizeTextType="uniform" />
         <Button
             android:id="@+id/button4"
@@ -206,13 +220,13 @@
         style="?android:attr/buttonBarStyle" >
 
         <Button
-            android:id="@+id/buttonPI"
+            android:id="@+id/buttonSqrt"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="inputSpecialCharacter"
-            android:text="@string/buttonPI"
+            android:onClick="sqrt"
+            android:text="@string/buttonSqrtText"
             android:autoSizeTextType="uniform" />
         <Button
             android:id="@+id/button7"
@@ -267,14 +281,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/buttonCbrtText"
+            android:onClick="cbrt"
             android:autoSizeTextType="uniform"/>
         <Button
-            android:id="@+id/buttonSqrt"
+            android:id="@+id/buttonChangeSign"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/buttonSqrtText"
+            android:onClick="changeSign"
+            android:text="@string/buttonChangeSignText"
             android:autoSizeTextType="uniform"/>
 
         <Button
