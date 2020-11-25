@@ -162,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
             this.init();
             // Memorizzo l'operatore
             this.operator = ((Button) view).getText().toString();
+            // Se l'operatore è x^n lo rimpiazzo this.operator con ^
+            this.operator = view.getId() == R.id.buttonPowerN ? "^" : this.operator;
             this.x = this.ans;
             this.xString = this.ansString;
             this.firstNumber = true;
@@ -198,6 +200,8 @@ public class MainActivity extends AppCompatActivity {
                 // in modo che venga aggiornato l'operatore senza modificare i valori
                 if (this.firstNumber) {
                     this.operator = selectedOp;
+                    // Se l'operatore è x^n lo rimpiazzo this.operator con ^
+                    this.operator = view.getId() == R.id.buttonPowerN ? "^" : this.operator;
                     this.fullOperationText = (this.xString + " " + this.operator + " " + this.yString);
                     this.fullOperationView.setText(this.fullOperationText);
                     return;
@@ -209,6 +213,8 @@ public class MainActivity extends AppCompatActivity {
             // Memorizzo l'operatore
             this.operator = ((Button) view).getText().toString();
 
+            // Se l'operatore è x^n lo rimpiazzo this.operator con ^
+            this.operator = view.getId() == R.id.buttonPowerN ? "^" : this.operator;
             if (this.firstNumber) {
                 // Se è gia stato inserito un numero, allora aggiorno l'operatore
                 // senza cambiare i valori gia inseriti
@@ -220,8 +226,10 @@ public class MainActivity extends AppCompatActivity {
 
                 this.fullOperationText = (this.xString + " " + this.operator + " " + this.yString);
             } else {
+
                 // Memorizzo il primo valore inserito
                 String inputNumber = this.screenText;
+
 
                 // Memorizzo il valore inserito nella variabile x
                 this.x = Double.valueOf(inputNumber);
@@ -402,7 +410,9 @@ public class MainActivity extends AppCompatActivity {
         // Se sono stati inseriti entrambi i numeri, smisto l'operazione ad uno o due numeri
         if (secondNumber) {
             //smisto l'operazione da fare ad un solo operatore
-            if ((operator.compareTo("×") == 0)) {
+            if ((operator.compareTo("^") == 0)) {
+                this.r = Math.pow(this.x, this.y);
+            } else if ((operator.compareTo("×") == 0)) {
                 this.r = this.x * this.y;
             } else if ((operator.compareTo("+") == 0)) {
                 this.r = this.x + this.y;
@@ -474,21 +484,23 @@ public class MainActivity extends AppCompatActivity {
         this.updateViews(input);
     }
 
+
+    // ---------------------------------- OPERATORI AD UN SOLO NUMERO ----------------------------------
     public void sqrt(View view) {
         setOperator(view);
-        if (this.x<0){
-            updateViews("Error", false);
+        if (!this.firstNumber) {
+            return;
+        }
+        if (this.x < 0){
+            updateViews("Error", CLEAR);
         } else {
             this.r = Math.sqrt(this.x);
             this.rString = Func.formatOutput(this.r);
 
             this.fullOperationText = "√(" + this.xString + ") = ";
-            this.screenText = "";
+            //this.screenText = "";
 
-            updateViews(this.rString);
-
-            this.ans = this.r;
-            this.ansString = rString;
+            updateOneOperatorView(false);
         }
 
         newOperation();
@@ -497,63 +509,99 @@ public class MainActivity extends AppCompatActivity {
 
     public void cbrt(View view) {
         setOperator(view);
+        if (!this.firstNumber) {
+            return;
+        }
 
         this.r = Math.cbrt(this.x);
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = "³√(" + this.xString + ") = ";
-        this.screenText = "";
+        //this.screenText = "";
 
-        updateViews(this.rString);
-
-        this.ans = this.r;
-        this.ansString = rString;
-
-        newOperation();
+        updateOneOperatorView();
 
     }
 
     public void pow2(View view) {
         setOperator(view);
+        if (!this.firstNumber) {
+            return;
+        }
 
         this.r = Math.pow(this.x,2);
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText =  "("+ this.xString + ")² = ";
-        this.screenText = "";
+        //this.screenText = "";
 
-        updateViews(this.rString);
-
-        this.ans = this.r;
-        this.ansString = rString;
-
-        newOperation();
+        updateOneOperatorView();
 
     }
 
     public void pow3(View view) {
         setOperator(view);
+        if (!this.firstNumber) {
+            return;
+        }
 
         this.r = Math.pow(this.x,3);
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText =  "("+ this.xString + ")³ = ";
-        this.screenText = "";
+        //this.screenText = "";
 
-        updateViews(this.rString);
+        updateOneOperatorView();
 
-        this.ans = this.r;
-        this.ansString = rString;
+    }
 
-        newOperation();
+    public void tan(View view) {
+        setOperator(view);
+        if (!this.firstNumber) {
+            return;
+        }
+        this.r = Math.tan(this.x);
+        this.rString = Func.formatOutput(this.r);
 
+        this.fullOperationText = String.format("tan(%s) = ", this.xString);
+
+        updateOneOperatorView();
+    }
+
+    public void cos(View view) {
+        setOperator(view);
+        if (!this.firstNumber) {
+            return;
+        }
+        this.r = Math.cos(this.x);
+        this.rString = Func.formatOutput(this.r);
+
+        this.fullOperationText = String.format("cos(%s) = ", this.xString);
+
+        updateOneOperatorView();
+    }
+
+    public void sin(View view) {
+        setOperator(view);
+        if (!this.firstNumber) {
+            return;
+        }
+        this.r = Math.sin(this.x);
+        this.rString = Func.formatOutput(this.r);
+
+        this.fullOperationText = String.format("sin(%s) = ", this.xString);
+
+        updateOneOperatorView();
     }
 
     public void factorial(View  view){
         setOperator(view);
+        if (!this.firstNumber) {
+            return;
+        }
         boolean error = false;
         if (!Func.hasDecimal(this.x)){
-            if (this.x>171){
+            if (this.x > 171){
                 error = true;
             } else {
                 this.r = Double.parseDouble(String.valueOf(Func.factorialOp(this.x)));
@@ -566,12 +614,9 @@ public class MainActivity extends AppCompatActivity {
             this.rString = Func.formatOutput(this.r);
 
             this.fullOperationText = this.xString + "! = ";
-            this.screenText = "";
+            //this.screenText = "";
 
-            updateViews(this.rString);
-
-            this.ans = this.r;
-            this.ansString = rString;
+            updateOneOperatorView(false);
 
         } else {
             updateViews("Error", CLEAR);
@@ -633,11 +678,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Pulisce la textView screenView
+     */
     private void clearScreen() {
         this.screenText = "";
         this.screenView.setText("");
     }
 
+    /**
+     * Richiamato per mostrare il risultato delle operazioni ad un solo parametro
+     * @param newOp: Parametro opzionale che se false non esegue newOperation();
+     */
+    private void updateOneOperatorView(boolean... newOp){
 
+        this.clearScreen();
 
+        updateViews(this.rString);
+
+        this.ans = this.r;
+        this.ansString = rString;
+
+        // nel caso passo false come parametro non eseguo newOperation
+        if(newOp.length > 0){
+            if (!newOp[0]){
+                return;
+            }
+        }
+        newOperation();
+    }
 }

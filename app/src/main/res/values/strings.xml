@@ -29,4 +29,7 @@
     <string name="historyTitle">History</string>
     <string name="deleteHistoryText">Clear History</string>
     <string name="buttonFactorialText">X!</string>
+    <string name="sin_x">sin(x)</string>
+    <string name="cos_x">cos(x)</string>
+    <string name="tan_x">tan(x)</string>
 </resources>

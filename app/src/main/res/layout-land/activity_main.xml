@@ -172,13 +172,22 @@
         android:layout_height="0dp"
         style="?android:attr/buttonBarStyle" >
         <Button
+            android:id="@+id/buttonSin"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/sin_x"
+            android:onClick="sin"
+            android:autoSizeTextType="uniform" />
+        <Button
             android:id="@+id/buttonPowerN"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/buttonPowerN"
-            android:onClick="powN"
+            android:onClick="setOperator"
             android:autoSizeTextType="uniform" />
         <Button
             android:id="@+id/button4"
@@ -228,6 +237,15 @@
         android:layout_height="0dp"
         style="?android:attr/buttonBarStyle" >
 
+        <Button
+            android:id="@+id/buttonCos"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="cos"
+            android:text="@string/cos_x"
+            android:autoSizeTextType="uniform" />
         <Button
             android:id="@+id/buttonSqrt"
             style="?android:attr/buttonBarButtonStyle"
@@ -284,14 +302,23 @@
         android:layout_height="0dp"
         style="?android:attr/buttonBarStyle" >
         <Button
-            android:id="@+id/buttonCbrt"
+            android:id="@+id/buttonTan"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/buttonCbrtText"
-            android:onClick="cbrt"
+            android:text="@string/tan_x"
+            android:onClick="tan"
             android:autoSizeTextType="uniform"/>
+        <Button
+        android:id="@+id/buttonCbrt"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="@string/buttonCbrtText"
+        android:onClick="cbrt"
+        android:autoSizeTextType="uniform"/>
         <Button
             android:id="@+id/buttonChangeSign"
             style="?android:attr/buttonBarButtonStyle"
