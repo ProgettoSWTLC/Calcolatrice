@@ -343,6 +343,15 @@
         android:layout_height="0dp"
         style="?android:attr/buttonBarStyle" >
         <Button
+            android:id="@+id/buttonChangeAngle"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="RAD"
+            android:onClick="changeAngle"
+            android:autoSizeTextType="uniform"/>
+        <Button
             android:id="@+id/buttonTan"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
