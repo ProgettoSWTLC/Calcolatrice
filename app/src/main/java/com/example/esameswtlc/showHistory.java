@@ -51,7 +51,7 @@ public class showHistory extends AppCompatActivity {
             parametri.weight = 1.0f;
             parametri.gravity = Gravity.START;
             newOperationView.setLayoutParams(parametri);
-            newOperationView.setPadding(0, 0, 0, 10);
+            newOperationView.setPadding(10, 10, 10, 10);
             newOperationView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
             newOperationView.setLines(2);
             newOperationView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
