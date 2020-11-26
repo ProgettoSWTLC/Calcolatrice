@@ -1,22 +1,15 @@
 package com.example.esameswtlc;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -493,6 +486,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeAngle(View view) {
+        String textAngle = ((Button) view).getText().toString();
+        if (textAngle.equals("rad")){
+            ((Button) view).setText("deg");
+            this.angleMode = true;
+        } else {
+            ((Button) view).setText("rad");
+            this.angleMode = false;
+        }
 
     }
 
@@ -571,7 +572,11 @@ public class MainActivity extends AppCompatActivity {
         if (!this.firstNumber) {
             return;
         }
-        this.r = Math.tan(this.x);
+        if (!angleMode) {
+            this.r = Math.tan(this.x);
+        } else {
+            this.r = Math.tan(this.x/180*Math.PI);
+        }
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("tan(%s) = ", this.xString);
@@ -584,7 +589,11 @@ public class MainActivity extends AppCompatActivity {
         if (!this.firstNumber) {
             return;
         }
-        this.r = Math.cos(this.x);
+        if (!angleMode) {
+            this.r = Math.cos(this.x);
+        } else {
+            this.r = Math.cos(this.x/180*Math.PI);
+        }
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("cos(%s) = ", this.xString);
@@ -597,7 +606,11 @@ public class MainActivity extends AppCompatActivity {
         if (!this.firstNumber) {
             return;
         }
-        this.r = Math.sin(this.x);
+        if (!angleMode) {
+            this.r = Math.sin(this.x);
+        } else {
+            this.r = Math.sin(this.x/180*Math.PI);
+        }
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("sin(%s) = ", this.xString);
