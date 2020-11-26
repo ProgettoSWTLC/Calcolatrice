@@ -1,17 +1,14 @@
 package com.example.esameswtlc;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -505,7 +502,6 @@ public class MainActivity extends AppCompatActivity {
                      ? "DEG"
                      : "RAD"
         );
-
     }
 
 
@@ -589,6 +585,7 @@ public class MainActivity extends AppCompatActivity {
                 : this.x;
 
         this.r = Math.tan(this.x);
+
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("tan(%s) = ", this.xString);
@@ -607,6 +604,7 @@ public class MainActivity extends AppCompatActivity {
                : this.x;
 
         this.r =  Math.cos(this.x);
+
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("cos(%s) = ", this.xString);
@@ -625,6 +623,7 @@ public class MainActivity extends AppCompatActivity {
                 : this.x;
 
         this.r = Math.sin(this.x);
+
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("sin(%s) = ", this.xString);
