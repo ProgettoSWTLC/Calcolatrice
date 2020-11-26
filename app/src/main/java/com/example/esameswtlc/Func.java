@@ -32,11 +32,15 @@ public class Func {
      * @return fattoriale di x
      */
     public static double factorialOp(Double x) {
-        Double result = 1.0;
-        for (int i = 2; i <= x; i++){
+        if (x == 0.0) {
+            return 1;
+        }
+        double sign = x / Math.abs(x);
+        double result = 1.0;
+        for (int i = 2; i <= Math.abs(x); i++){
             result = result * i;
         }
-        return result;
+        return result * sign;
     }
 
 }
