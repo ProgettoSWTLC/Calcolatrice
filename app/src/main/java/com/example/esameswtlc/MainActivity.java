@@ -491,6 +491,7 @@ public class MainActivity extends AppCompatActivity {
         if (!this.firstNumber) {
             return;
         }
+        this.done = true;
         if (this.x < 0){
             updateViews("Error", CLEAR);
         } else {
@@ -502,8 +503,6 @@ public class MainActivity extends AppCompatActivity {
 
             updateOneOperatorView(false);
         }
-
-        newOperation();
 
     }
 
@@ -518,7 +517,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.fullOperationText = "³√(" + this.xString + ") = ";
         //this.screenText = "";
-
+        this.done = true;
         updateOneOperatorView();
 
     }
@@ -534,7 +533,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.fullOperationText =  "("+ this.xString + ")² = ";
         //this.screenText = "";
-
+        this.done = true;
         updateOneOperatorView();
 
     }
@@ -550,7 +549,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.fullOperationText =  "("+ this.xString + ")³ = ";
         //this.screenText = "";
-
+        this.done = true;
         updateOneOperatorView();
 
     }
@@ -564,7 +563,7 @@ public class MainActivity extends AppCompatActivity {
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("tan(%s) = ", this.xString);
-
+        this.done = true;
         updateOneOperatorView();
     }
 
@@ -577,7 +576,7 @@ public class MainActivity extends AppCompatActivity {
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("cos(%s) = ", this.xString);
-
+        this.done = true;
         updateOneOperatorView();
     }
 
@@ -590,7 +589,7 @@ public class MainActivity extends AppCompatActivity {
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("sin(%s) = ", this.xString);
-
+        this.done = true;
         updateOneOperatorView();
     }
 
@@ -610,18 +609,18 @@ public class MainActivity extends AppCompatActivity {
             error = true;
         }
 
+        this.done = true;
         if (!error) {
             this.rString = Func.formatOutput(this.r);
 
             this.fullOperationText = this.xString + "! = ";
             //this.screenText = "";
 
-            updateOneOperatorView(false);
+            updateOneOperatorView(true);
 
         } else {
             updateViews("Error", CLEAR);
         }
-        newOperation();
 
     }
 
@@ -693,6 +692,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateOneOperatorView(boolean... newOp){
 
         this.clearScreen();
+        this.done = true;
 
         updateViews(this.rString);
 
