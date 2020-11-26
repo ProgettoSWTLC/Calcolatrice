@@ -32,4 +32,8 @@
     <string name="sin_x">sin(x)</string>
     <string name="cos_x">cos(x)</string>
     <string name="tan_x">tan(x)</string>
+    <string name="buttonE">e</string>
+    <string name="buttonLnText">ln</string>
+    <string name="buttonLogText">log</string>
+    <string name="buttonEPowXText">eⁿ</string>
 </resources>

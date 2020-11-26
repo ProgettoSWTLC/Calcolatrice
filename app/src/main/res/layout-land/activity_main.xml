@@ -30,11 +30,24 @@
         style="?android:attr/buttonBarStyle"
         android:layout_weight="1"
         >
+        <Button android:id="@+id/buttonE"
+            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="match_parent"
+            android:text="@string/buttonE"
+            android:textAllCaps="false"
+            android:textSize="24sp"
+            android:layout_weight="1"
+            android:onClick="inputSpecialCharacter"
+            tools:ignore="ButtonStyle"
+            android:autoSizeTextType="uniform"
+            />
         <Button android:id="@+id/buttonPI"
             android:layout_width="wrap_content"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_height="match_parent"
             android:text="@string/buttonPI"
+            android:textAllCaps="false"
             android:textSize="24sp"
             android:layout_weight="1"
             android:onClick="inputSpecialCharacter"
@@ -105,7 +118,16 @@
         android:layout_height="0dp"
         style="?android:attr/buttonBarStyle" >
 
-
+        <Button android:id="@+id/buttonLn"
+            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="match_parent"
+            android:text="@string/buttonLnText"
+            android:onClick="ln"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            tools:ignore="ButtonStyle"
+            android:autoSizeTextType="uniform"/>
         <Button android:id="@+id/buttonFactorial"
             android:layout_width="wrap_content"
             style="?android:attr/buttonBarButtonStyle"
@@ -171,6 +193,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         style="?android:attr/buttonBarStyle" >
+        <Button android:id="@+id/buttonLog"
+            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="match_parent"
+            android:text="@string/buttonLogText"
+            android:onClick="log"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            tools:ignore="ButtonStyle"
+            android:autoSizeTextType="uniform"/>
         <Button
             android:id="@+id/buttonSin"
             style="?android:attr/buttonBarButtonStyle"
@@ -236,7 +268,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         style="?android:attr/buttonBarStyle" >
-
+        <Button android:id="@+id/ePowX"
+            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_height="match_parent"
+            android:text="@string/buttonEPowXText"
+            android:onClick="ePowX"
+            android:textAllCaps="false"
+            android:layout_weight="1"
+            tools:ignore="ButtonStyle"
+            android:autoSizeTextType="uniform"/>
         <Button
             android:id="@+id/buttonCos"
             style="?android:attr/buttonBarButtonStyle"

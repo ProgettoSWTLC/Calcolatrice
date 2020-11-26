@@ -343,9 +343,11 @@ public class MainActivity extends AppCompatActivity {
 
         //smisto i vari casi di caratteri speciali
         if (input.equals("π")) {
-            value = "3.14159265";
+            value = Double.toString(Math.PI);
         } else if (input.equals("ANS")) {
             value = this.ansString;
+        } else if (input.equals("e")) {
+            value = Double.toString(Math.E);
         }
         // Aggiorno le TextView
         this.updateViews(value);
@@ -624,6 +626,47 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void ln(View view){
+        setOperator(view);
+        if (!this.firstNumber) {
+            return;
+        }
+        this.r = Math.log(this.x);
+        this.rString = Func.formatOutput(this.r);
+
+        this.fullOperationText = String.format("ln(%s) = ", this.xString);
+        this.done = true;
+        updateOneOperatorView();
+    }
+
+    public void log(View view){
+        setOperator(view);
+        if (!this.firstNumber) {
+            return;
+        }
+        this.r = Math.log10(this.x);
+        this.rString = Func.formatOutput(this.r);
+
+        this.fullOperationText = String.format("log(%s) = ", this.xString);
+        this.done = true;
+        updateOneOperatorView();
+    }
+
+    public void ePowX(View view) {
+        setOperator(view);
+        if (!this.firstNumber) {
+            return;
+        }
+
+        this.r = Math.pow(Math.E,this.x);
+        this.rString = Func.formatOutput(this.r);
+
+        this.fullOperationText =  "e^("+ this.xString + ") = ";
+        //this.screenText = "";
+        this.done = true;
+        updateOneOperatorView();
+    }
+
 
     // ___________________________________ Metodi utili ___________________________________
 
@@ -707,4 +750,5 @@ public class MainActivity extends AppCompatActivity {
         }
         newOperation();
     }
+
 }
