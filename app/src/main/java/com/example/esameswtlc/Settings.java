@@ -16,7 +16,7 @@ public class Settings {
 
     public Settings(){
         // TODO leggere il file e assegnare i valori letti agli attributi
-        this.angleMode = DEG;
+        this.angleMode = RAD;
     }
 
     public Boolean getAngleMode(){
