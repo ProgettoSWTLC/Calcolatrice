@@ -44,14 +44,16 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> history;
 
     private Boolean done;
-    private Boolean angleMode;  //  true -> RAD   ;   false -> DEG
 
+
+    private Settings settings;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        settings = new Settings();
 
         setContentView(R.layout.activity_main);
 
@@ -114,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
     // Supporto alla cronologia
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        // TODO Aggiornare le impostazioni ..
+
+
         if (requestCode == GET_OPERATION_CODE) {
             if (resultCode == showHistory.RESULT_CODE_GET_OPERATION) {
                 // Ottengo l'operazione che è stata cliccata nell'activity showHistory
@@ -485,16 +491,17 @@ public class MainActivity extends AppCompatActivity {
         this.updateViews(input);
     }
 
+    // TODO Questo direi di metterlo nella pagina delle impostazioni
+    // Oppure no? Boh, cioè, è bello anche qui, ma poi la pagina delle impostazioni
+    // rimane un po' vuota?
     public void changeAngle(View view) {
-        String textAngle = ((Button) view).getText().toString();
-        if (textAngle.equals("rad")){
-            ((Button) view).setText("deg");
-            this.angleMode = true;
-        } else {
-            ((Button) view).setText("rad");
-            this.angleMode = false;
-        }
+        this.settings.setAngleMode(!this.settings.getAngleMode());
 
+        ((Button)view).setText(
+                this.settings.getAngleMode() == Settings.DEG
+                     ? "DEG"
+                     : "RAD"
+        );
     }
 
 
@@ -572,11 +579,13 @@ public class MainActivity extends AppCompatActivity {
         if (!this.firstNumber) {
             return;
         }
-        if (!angleMode) {
-            this.r = Math.tan(this.x);
-        } else {
-            this.r = Math.tan(this.x/180*Math.PI);
-        }
+
+        this.x = this.settings.getAngleMode() == Settings.DEG
+                ? Math.toRadians(this.x) // se la modalità è DEG, converto l'input in radianti
+                : this.x;
+
+        this.r = Math.tan(this.x);
+
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("tan(%s) = ", this.xString);
@@ -589,11 +598,13 @@ public class MainActivity extends AppCompatActivity {
         if (!this.firstNumber) {
             return;
         }
-        if (!angleMode) {
-            this.r = Math.cos(this.x);
-        } else {
-            this.r = Math.cos(this.x/180*Math.PI);
-        }
+
+        this.x = this.settings.getAngleMode() == Settings.DEG
+               ? Math.toRadians(this.x) // se la modalità è DEG, converto l'input in radianti
+               : this.x;
+
+        this.r =  Math.cos(this.x);
+
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("cos(%s) = ", this.xString);
@@ -606,11 +617,13 @@ public class MainActivity extends AppCompatActivity {
         if (!this.firstNumber) {
             return;
         }
-        if (!angleMode) {
-            this.r = Math.sin(this.x);
-        } else {
-            this.r = Math.sin(this.x/180*Math.PI);
-        }
+
+        this.x = this.settings.getAngleMode() == Settings.DEG
+                ? Math.toRadians(this.x) // se la modalità è DEG, converto l'input in radianti
+                : this.x;
+
+        this.r = Math.sin(this.x);
+
         this.rString = Func.formatOutput(this.r);
 
         this.fullOperationText = String.format("sin(%s) = ", this.xString);
