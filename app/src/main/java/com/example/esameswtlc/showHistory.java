@@ -22,26 +22,27 @@ import static com.example.esameswtlc.R.attr.fastScrollHorizontalTrackDrawable;
 
 public class showHistory extends AppCompatActivity {
 
-    private ArrayList<String> history;
     public static final String GET_OPERATION = "com.example.esameswtlc.GET_OPERATION";
     public static final int RESULT_CODE_GET_OPERATION = 1;
     public static final int DELETE_HISTORY_CODE = 2;
+
+    private HistoryHandler history;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_history);
         Intent intent = getIntent();
-        this.history = intent.getStringArrayListExtra(MainActivity.HISTORY);
+        this.history = new HistoryHandler(intent.getStringArrayListExtra(MainActivity.HISTORY));
 
-
-        // Creazione della cronologia
-        for (String operation : this.history) {
+        // Creazione della cronologia in ordine inverso, cosi che
+        // l'ultima operazione della eseguita sia la prima della lista
+        for (String operation : this.history.reverse()) {
             MaterialButton newOperationView = new MaterialButton(this, null, R.attr.materialButtonOutlinedStyle);
-            if (operation.length()>0 && operation.compareTo("Error")!=0) {
-                String[] elements = new String[2];
+            if (operation.length() > 0 && operation.compareTo("Error") != 0) {
+                String[] elements;
                 elements = operation.split(" = ");
-                newOperationView.setText(elements[0] + " = " + "\n" + elements[1]);
+                newOperationView.setText(String.format("%s = \n%s", elements[0], elements[1]));
             }
 
             LinearLayout.LayoutParams parametri = new LinearLayout.LayoutParams(

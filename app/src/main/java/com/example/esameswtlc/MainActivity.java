@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         this.screenView = findViewById(R.id.screenView);
         this.fullOperationView = findViewById(R.id.fullOperationView);
         this.history = new ArrayList<>();
+        HistoryHandler.readHistoryFromFile(this.history);
         this.init();
     }
 
@@ -347,12 +348,16 @@ public class MainActivity extends AppCompatActivity {
         deleteDigit(view);
 
         //smisto i vari casi di caratteri speciali
-        if (input.equals("π")) {
-            value = Double.toString(Math.PI);
-        } else if (input.equals("ANS")) {
-            value = this.ansString;
-        } else if (input.equals("e")) {
-            value = Double.toString(Math.E);
+        switch (input) {
+            case "π":
+                value = Double.toString(Math.PI);
+                break;
+            case "ANS":
+                value = this.ansString;
+                break;
+            case "e":
+                value = Double.toString(Math.E);
+                break;
         }
         // Aggiorno le TextView
         this.updateViews(value);
