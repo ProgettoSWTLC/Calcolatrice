@@ -40,22 +40,30 @@ public class showHistory extends AppCompatActivity {
         Intent intent = getIntent();
 
         // Creo l'oggetto HistoryHandler partendo dall'ArrayList passato come extra
+        // In questo modo this.history è un'ArrayList che contiene anche dei
+        // metodi per il salvataggio e cancellazione di file.
+        // Il secondo paramentro, "this" è perché per la gestione dei file serve quella roba di
+        // AppCompatActivity, quindi, essendo showHistory (ovvero questa classe) un'estensione di
+        // AppCompatActivity, passo direttamente tutta l'istanza.
         this.history = new HistoryHandler(intent.getStringArrayListExtra(MainActivity.HISTORY), this);
 
         // Creazione della cronologia in ordine inverso, cosi che
         // l'ultima operazione della eseguita sia la prima della lista
         for (String operation : this.history.reverse()) {
             MaterialButton newOperationView = new MaterialButton(this, null, R.attr.materialButtonOutlinedStyle);
+
             if (operation.length() > 0 && operation.compareTo("Error") != 0) {
                 String[] elements;
                 elements = operation.split(" = ");
                 newOperationView.setText(String.format("%s = \n%s", elements[0], elements[1]));
             }
 
+            // Parametri grafici del pulsante che contiene l'operazione
             LinearLayout.LayoutParams parametri = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
+
             parametri.weight = 1.0f;
             parametri.gravity = Gravity.START;
             newOperationView.setLayoutParams(parametri);
@@ -64,6 +72,7 @@ public class showHistory extends AppCompatActivity {
             newOperationView.setLines(2);
             newOperationView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             newOperationView.setHorizontallyScrolling(true);
+
             // Aggiungo event listener
             newOperationView.setOnClickListener(v -> {
                 Intent resultIntent = new Intent();
@@ -71,6 +80,8 @@ public class showHistory extends AppCompatActivity {
                 setResult(RESULT_CODE_GET_OPERATION, resultIntent);
                 finish();
             });
+
+            // Aggiungo il pulsante al layout
             ((LinearLayout)findViewById(R.id.historyContainer)).addView(newOperationView);
         }
     }
