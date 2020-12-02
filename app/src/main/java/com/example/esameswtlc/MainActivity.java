@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         this.screenView = findViewById(R.id.screenView);
         this.fullOperationView = findViewById(R.id.fullOperationView);
         this.history = new ArrayList<>();
-        HistoryHandler.readHistoryFromFile(this.history);
+        HistoryHandler.readHistoryFromFile(this.history, this);
         this.init();
     }
 
@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         savedInstanceState.putBoolean("first_number", this.firstNumber);
         savedInstanceState.putBoolean("second_number", this.secondNumber);
 
-
     }
 
     // Supporto alla cronologia
@@ -119,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         // TODO Aggiornare le impostazioni ..
-
 
         if (requestCode == GET_OPERATION_CODE) {
             if (resultCode == showHistory.RESULT_CODE_GET_OPERATION) {
@@ -143,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (resultCode == showHistory.DELETE_HISTORY_CODE) {
                 this.history.clear();
                 this.init();
+
                 // Messaggio a schermo che conferma la cancellazione della cronologia
                 Context context = getApplicationContext();
                 CharSequence text = "History has been deleted";
@@ -526,7 +525,7 @@ public class MainActivity extends AppCompatActivity {
             this.fullOperationText = "√(" + this.xString + ") = ";
             //this.screenText = "";
 
-            updateOneOperatorView(false);
+            updateOneOperatorView();
         }
 
     }

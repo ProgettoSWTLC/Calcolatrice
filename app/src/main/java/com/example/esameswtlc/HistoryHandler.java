@@ -1,6 +1,9 @@
 package com.example.esameswtlc;
 
+import android.content.Context;
 import android.os.Environment;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -15,47 +21,40 @@ public class HistoryHandler extends ArrayList<String>{
 
     public static final String HISTORY_FILE = "History.txt";
 
-    public static void readHistoryFromFile(ArrayList<String> list) {
-        String operation;
-        try(
-                FileReader historyFile = new FileReader(HISTORY_FILE);
-                BufferedReader historyStream = new BufferedReader(historyFile);
-        )
-        {
-            operation = historyStream.readLine();
-            while (operation != null) {
-                list.add(operation);
-                operation = historyStream.readLine();
+    public static void readHistoryFromFile(ArrayList<String> list, AppCompatActivity app) {
+        try {
+            InputStream is = app.openFileInput(HISTORY_FILE);
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader in = new BufferedReader(isr);
+
+            String op = in.readLine();
+
+            while(op != null){
+                list.add(op);
+                op = in.readLine();
             }
-        }
-        catch (FileNotFoundException e) {
-            System.out.println("File not found\n");
-        }
-        catch (IOException e) {
-            System.out.println("There was a problem reading the file");
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public HistoryHandler(ArrayList<String> historyIn) {
-        super(historyIn);
+    private final AppCompatActivity app;
 
+    public HistoryHandler(ArrayList<String> historyIn, AppCompatActivity appIn) {
+        super(historyIn);
+        this.app = appIn;
+
+        // Salvo la cronologia sul file
         this.writeOnFile();
     }
 
     private void writeOnFile() {
-
-        try (
-            FileWriter historyFile = new FileWriter(HISTORY_FILE);
-            PrintWriter historyWriter = new PrintWriter(historyFile);
-            )
-        {
-            for(String operation : this) {
-                historyWriter.println(operation);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("There was a problem writing the file");
+        StringBuilder data = new StringBuilder();
+        for(String operation : this) {
+            data.append(operation).append("\n");
         }
+        this.writeFile(data.toString());
     }
 
 
@@ -68,6 +67,26 @@ public class HistoryHandler extends ArrayList<String>{
         }
 
         return reversed;
+    }
+
+    @Override
+    public void clear() {
+        // Pulisco il file della cronologia
+        this.writeFile("");
+    }
+
+
+    private void writeFile(String text){
+        try {
+            OutputStreamWriter osw = new OutputStreamWriter(this.app.openFileOutput(HISTORY_FILE, Context.MODE_PRIVATE));
+            osw.write(text.toString());
+            osw.flush();
+            osw.close();
+        }catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

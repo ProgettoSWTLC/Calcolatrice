@@ -26,6 +26,11 @@ public class showHistory extends AppCompatActivity {
     public static final int RESULT_CODE_GET_OPERATION = 1;
     public static final int DELETE_HISTORY_CODE = 2;
 
+    /*
+        La classe HistoryHandler è un arraylist con metodi
+        che permettono di poter salvare il contenuto su un file.
+        Diciamo che è un'array list sotto steroidi..
+     */
     private HistoryHandler history;
 
     @Override
@@ -33,7 +38,9 @@ public class showHistory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_history);
         Intent intent = getIntent();
-        this.history = new HistoryHandler(intent.getStringArrayListExtra(MainActivity.HISTORY));
+
+        // Creo l'oggetto HistoryHandler partendo dall'ArrayList passato come extra
+        this.history = new HistoryHandler(intent.getStringArrayListExtra(MainActivity.HISTORY), this);
 
         // Creazione della cronologia in ordine inverso, cosi che
         // l'ultima operazione della eseguita sia la prima della lista
@@ -70,6 +77,8 @@ public class showHistory extends AppCompatActivity {
 
     public void deleteHistory(View view) {
         Intent resultIntent = new Intent();
+        // Pulisco il file
+        this.history.clear();
         setResult(DELETE_HISTORY_CODE, resultIntent);
         finish();
     }
