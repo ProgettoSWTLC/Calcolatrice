@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        settings = new Settings();
+        settings = new Settings(this);
 
         setContentView(R.layout.activity_main);
 
@@ -500,7 +500,7 @@ public class MainActivity extends AppCompatActivity {
     // Oppure no? Boh, cioè, è bello anche qui, ma poi la pagina delle impostazioni
     // rimane un po' vuota?
     public void changeAngle(View view) {
-        this.settings.setAngleMode(!this.settings.getAngleMode());
+        this.settings.setAngleMode(!this.settings.getAngleMode(),this);
 
         ((Button)view).setText(
                 this.settings.getAngleMode() == Settings.DEG
