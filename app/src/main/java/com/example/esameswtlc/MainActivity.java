@@ -759,6 +759,10 @@ public class MainActivity extends AppCompatActivity {
             this.ans = 0.0;
             this.ansString = "0.0";
         }
+        Button angleMode = findViewById(R.id.buttonChangeAngle);
+        angleMode.setText(this.settings.getAngleMode()==Settings.DEG
+                ?   "DEG"
+                :   "RAD");
     }
 
     /**

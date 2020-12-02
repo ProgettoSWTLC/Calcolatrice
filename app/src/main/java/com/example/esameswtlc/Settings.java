@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Settings {
@@ -24,11 +25,11 @@ public class Settings {
     final String SETTING_FILE = "Settings.txt";
 
     public Settings(AppCompatActivity app){
-        this.setting = new ArrayList<>();
+        this.setting = new ArrayList<String>();
         // leggo i parametri scritti sul file
         readFile(app);
+        this.angleMode = this.setting.get(0).equals(DEG.toString()) ? DEG : RAD;
 
-        this.angleMode = Boolean.getBoolean(this.setting.get(0));
     }
 
     private void readFile(AppCompatActivity app){
