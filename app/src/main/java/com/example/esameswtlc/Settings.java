@@ -6,12 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Settings {
@@ -24,15 +22,18 @@ public class Settings {
 
     final String SETTING_FILE = "Settings.txt";
 
-    public Settings(AppCompatActivity app){
+    private AppCompatActivity app;
+
+    public Settings(AppCompatActivity appIn){
         this.setting = new ArrayList<String>();
+        this.app = appIn;
         // leggo i parametri scritti sul file
-        readFile(app);
+        readFile();
         this.angleMode = this.setting.get(0).equals(DEG.toString()) ? DEG : RAD;
 
     }
 
-    private void readFile(AppCompatActivity app){
+    private void readFile(){
         try {
             InputStream is = app.openFileInput(SETTING_FILE);
             InputStreamReader isr = new InputStreamReader(is);
@@ -55,21 +56,21 @@ public class Settings {
         return this.angleMode;
     }
 
-    public void setAngleMode(Boolean mode, AppCompatActivity app) {
+    public void setAngleMode(Boolean mode) {
         this.angleMode = mode;
         this.setting.set(0,this.angleMode.toString());
-        writeOnFile(app);
+        updateSettingsFile();
     }
 
-    private void writeOnFile(AppCompatActivity app) {
+    private void updateSettingsFile() {
         StringBuilder data = new StringBuilder();
         for(String operation : this.setting) {
             data.append(operation).append("\n");
         }
-        this.writeFile(data.toString(), app);
+        this.writeFile(data.toString());
     }
 
-    private void writeFile(String text, AppCompatActivity app){
+    private void writeFile(String text){
         try {
             OutputStreamWriter osw = new OutputStreamWriter(app.openFileOutput(SETTING_FILE, Context.MODE_PRIVATE));
             osw.write(text);
