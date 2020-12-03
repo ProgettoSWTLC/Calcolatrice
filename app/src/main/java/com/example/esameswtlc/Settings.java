@@ -27,8 +27,16 @@ public class Settings {
     public Settings(AppCompatActivity appIn){
         this.setting = new ArrayList<String>();
         this.app = appIn;
-        // leggo i parametri scritti sul file
+
+        // Leggo i parametri scritti sul file
         readFile();
+
+        // Se il file non esiste ne creo uno nuovo con le impostazione di default
+        if (this.setting.size() < 1){
+            writeFile("true");
+            this.setting.add("true");
+        }
+
         this.angleMode = this.setting.get(0).equals(DEG.toString()) ? DEG : RAD;
 
     }
