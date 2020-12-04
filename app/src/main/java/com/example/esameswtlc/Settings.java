@@ -17,15 +17,15 @@ public class Settings {
     final static Boolean DEG = false;
 
     private Boolean angleMode;
-    int colore;
-    private ArrayList<String> setting;
+    private Integer theme;
+    private final ArrayList<String> setting;
 
     final String SETTING_FILE = "Settings.txt";
 
-    private AppCompatActivity app;
+    private final AppCompatActivity app;
 
     public Settings(AppCompatActivity appIn){
-        this.setting = new ArrayList<String>();
+        this.setting = new ArrayList<>();
         this.app = appIn;
 
         // Leggo i parametri scritti sul file
@@ -33,12 +33,13 @@ public class Settings {
 
         // Se il file non esiste ne creo uno nuovo con le impostazione di default
         if (this.setting.size() < 1){
-            writeFile("true");
-            this.setting.add("true");
+            writeFile("true\n0");
+            this.setting.add("true"); // radianti
+            this.setting.add("0");    // tema
         }
 
         this.angleMode = this.setting.get(0).equals(DEG.toString()) ? DEG : RAD;
-
+        this.theme = Integer.valueOf(this.setting.get(1));
     }
 
     private void readFile(){
@@ -62,6 +63,16 @@ public class Settings {
 
     public Boolean getAngleMode(){
         return this.angleMode;
+    }
+
+    public Integer getTheme() {
+        return this.theme;
+    }
+
+    public void setTheme(int themeNumber) {
+        this.theme = themeNumber;
+        this.setting.set(1, this.theme.toString());
+        updateSettingsFile();
     }
 
     public void setAngleMode(Boolean mode) {

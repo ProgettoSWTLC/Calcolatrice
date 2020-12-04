@@ -8,11 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EsameSWTLC">
-        <activity android:name=".showHistory"></activity>
-        <activity
-            android:name=".MainActivity"
-            >
+        android:theme="@style/Theme.Purple">
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".ShowHistory" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

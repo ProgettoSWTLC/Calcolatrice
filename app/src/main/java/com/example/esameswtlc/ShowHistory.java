@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import static com.example.esameswtlc.R.attr.fastScrollHorizontalTrackDrawable;
 
-public class showHistory extends AppCompatActivity {
+public class ShowHistory extends AppCompatActivity {
 
     public static final String GET_OPERATION = "com.example.esameswtlc.GET_OPERATION";
     public static final int RESULT_CODE_GET_OPERATION = 1;
@@ -33,8 +33,21 @@ public class showHistory extends AppCompatActivity {
      */
     private HistoryHandler history;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Settings settings = new Settings(this);
+
+        switch (settings.getTheme()){
+            case 1:
+                setTheme(R.style.Theme_Green);
+                break;
+            case 2:
+                setTheme(R.style.Theme_Red);
+                break;
+            default:
+                setTheme(R.style.Theme_Purple);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_history);
         Intent intent = getIntent();
@@ -45,11 +58,11 @@ public class showHistory extends AppCompatActivity {
         // Il secondo paramentro, "this" è perché per la gestione dei file serve quella roba di
         // AppCompatActivity, quindi, essendo showHistory (ovvero questa classe) un'estensione di
         // AppCompatActivity, passo direttamente tutta l'istanza.
-        this.history = new HistoryHandler(intent.getStringArrayListExtra(MainActivity.HISTORY), this);
+        history = new HistoryHandler(intent.getStringArrayListExtra(MainActivity.HISTORY), this);
 
         // Creazione della cronologia in ordine inverso, cosi che
         // l'ultima operazione della eseguita sia la prima della lista
-        for (String operation : this.history.reverse()) {
+        for (String operation : history.reverse()) {
             MaterialButton newOperationView = new MaterialButton(this, null, R.attr.materialButtonOutlinedStyle);
 
             if (operation.length() > 0 && operation.compareTo("Error") != 0) {
@@ -89,7 +102,7 @@ public class showHistory extends AppCompatActivity {
     public void deleteHistory(View view) {
         Intent resultIntent = new Intent();
         // Pulisco il file
-        this.history.clear();
+        history.clear();
         setResult(DELETE_HISTORY_CODE, resultIntent);
         finish();
     }

@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private final Boolean CLEAR = false;
     public static final String HISTORY = "com.example.esameswtlc.HISTORY";
     public static final int GET_OPERATION_CODE = 1;
+    public static final int GET_THEME = 2;
 
     // Riferimento alle text view della main activity
     private TextView screenView;
@@ -52,9 +53,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.settings = new Settings(this);
+
+        switch (this.settings.getTheme()){
+            case 1:
+                setTheme(R.style.Theme_Green);
+                break;
+            case 2:
+                setTheme(R.style.Theme_Red);
+                break;
+            default:
+                setTheme(R.style.Theme_Purple);
+        }
+
         super.onCreate(savedInstanceState);
 
-        this.settings = new Settings(this);
 
         setContentView(R.layout.activity_main);
 
@@ -91,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.fullOperationView.setText(this.fullOperationText);
         this.screenView.setText(this.screenText);
+
     }
 
     @Override
@@ -121,9 +135,9 @@ public class MainActivity extends AppCompatActivity {
         // TODO Aggiornare le impostazioni ..
 
         if (requestCode == GET_OPERATION_CODE) {
-            if (resultCode == showHistory.RESULT_CODE_GET_OPERATION) {
+            if (resultCode == ShowHistory.RESULT_CODE_GET_OPERATION) {
                 // Ottengo l'operazione che è stata cliccata nell'activity showHistory
-                String operation = data.getStringExtra(showHistory.GET_OPERATION);
+                String operation = data.getStringExtra(ShowHistory.GET_OPERATION);
                 this.done = true;
 
                 // Aggiorno la grafica
@@ -139,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 this.ansString = resultString;
                 this.ans = Double.valueOf(resultString);
 
-            } else if (resultCode == showHistory.DELETE_HISTORY_CODE) {
+            } else if (resultCode == ShowHistory.DELETE_HISTORY_CODE) {
                 this.history.clear();
                 this.init();
 
@@ -150,6 +164,19 @@ public class MainActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
             }
+        } else if (requestCode == GET_THEME) {
+            switch (resultCode) {
+                case SettingsActivity.PURPLE_THEME_CODE:
+                    setTheme(R.style.Theme_Purple);
+                    break;
+                case SettingsActivity.GREEN_THEME_CODE:
+                    setTheme(R.style.Theme_Green);
+                    break;
+                case SettingsActivity.RED_THEME_CODE:
+                    setTheme(R.style.Theme_Red);
+                    break;
+            }
+            recreate();
         }
     }
 
@@ -382,11 +409,15 @@ public class MainActivity extends AppCompatActivity {
      * @param view: fullOperationView
      */
     public void showHistory(View view) {
-        Intent intent = new Intent(this, showHistory.class);
+        Intent intent = new Intent(this, ShowHistory.class);
         intent.putExtra(HISTORY, history);
         startActivityForResult(intent, GET_OPERATION_CODE);
     }
 
+    public void showSettings(View view) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivityForResult(intent, GET_THEME);
+    }
     /**
      * Alla pressione dell'uguale il metodo restituisce l'operazione in base all'operatore inserito
      * Legge inoltre se è stato inserito un secondo numero

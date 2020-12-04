@@ -36,4 +36,11 @@
     <string name="buttonLnText">ln</string>
     <string name="buttonLogText">log</string>
     <string name="buttonEPowXText">eⁿ</string>
+    <string name="historyButtonText">History</string>
+    <string name="settingsButtonText">Settings</string>
+    <string name="settingsTitle">Settings</string>
+    <string name="defaultSettingsButton">Default</string>
+    <string name="nameTheme1">Purple</string>
+    <string name="nameTheme2">Green</string>
+    <string name="nameTheme3">Red</string>
 </resources>
